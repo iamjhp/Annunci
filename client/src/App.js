@@ -1,5 +1,5 @@
 import './App.css';
-import { Button } from '@mantine/core';
+import AdForm from './components/AdForm';
 
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
       <h1 className="text-9xl font-bold underline text-yellow-500">
         Hello world!
       </h1>
-      <Button>Click me!</Button>
+      <AdForm />
     </div>
     
   );
