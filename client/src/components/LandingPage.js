@@ -3,8 +3,8 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
 import {
     CreateFooterNavigation, CreateHeaderTitle, CreateLoginProfile,
-    CreateLogo, CreateMainContent, CreateMenuItem, CreateMobileLoginProfil,
-    CreateMobileNavigation, CreateMobileLoginNavigation1, CreateTopNavigation, CreateLoginButton} from './LandingPageComponents'
+    CreateLogo, CreateMainContent, CreateMenuItem, CreateMobileLoggedProfile,
+    CreateMobileNavigation, CreateMobileProfileNavigation, CreateTopNavigation, CreateLoginButton} from './LandingPageComponents'
 
 
 export default function LandingPage() {
@@ -61,8 +61,8 @@ export default function LandingPage() {
                             <Disclosure.Panel className="sm:hidden">
                                 <CreateMobileNavigation/>
                                 <div className="border-t border-gray-200 pt-4 pb-3">
-                                   <CreateMobileLoginProfil/>
-                                   <CreateMobileLoginNavigation1/>
+                                   <CreateMobileLoggedProfile/>
+                                   <CreateMobileProfileNavigation/>
                                 </div>
                             </Disclosure.Panel>
                         </>

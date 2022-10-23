@@ -1,9 +1,12 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 
+
 const logoName = 'Annunci'
+const logo = 'https://1000logos.net/wp-content/uploads/2017/03/McDonalds-logo.png'
 const title = 'Entdecke die neuesten Inserate'
 
+///User who logged in
 const user = {
     name: 'Tom Cook',
     email: 'tom@example.com',
@@ -17,8 +20,8 @@ const topNavigation = [
 ]
 
 const userNavigation = [
-    { name: 'Your Profile', href: '#' },
-    { name: 'Settings', href: '#' },
+    { name: 'Mein Profil', href: '#' },
+    { name: 'Einstellungen', href: '#' },
     { name: 'Sign out', href: '#' },
 ]
 
@@ -33,7 +36,13 @@ const footerNavigation = {
     ],
 }
 
+/** Hook for handling the Login and Signed In button. */
+function useLoginStatus(props) {
+    const [userLoggedIn, setUserLoggedIn] = useState(true);//Here replace useState(false) with right attribute
 
+    return userLoggedIn;
+}
+       
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
@@ -44,12 +53,12 @@ export function CreateLogo() {
         <div className="flex flex-shrink-0 items-center">
         <img
             className="block h-8 w-auto lg:hidden"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                src={logo }
                 alt={logoName}
         />
         <img
                 className="hidden h-8 w-auto lg:block"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                src={logo }
                 alt={logoName}
         />
     </div>);
@@ -129,10 +138,11 @@ export function CreateHeaderTitle() {
     );
 }
 
+/** Body space for the ads */
 export function CreateMainContent() {
     return (
 
-        ///REPLACE
+        ///REPLACE => Place ad here
         < div className = "px-4 py-8 sm:px-0" >
             <div className="h-96 rounded-lg border-4 border-dashed border-gray-200" />
         </div >
@@ -140,36 +150,17 @@ export function CreateMainContent() {
     );
 }
 
-export function CreateMobileNavigation() {
-    return (
-        <div className="space-y-1 pt-2 pb-3">
-        {topNavigation.map((item) => (
-            <Disclosure.Button
-                key={item.name}
-                as="a"
-                href={item.href}
-                className={classNames(
-                    item.current
-                        ? 'no-underline bg-indigo-50 border-indigo-500 text-indigo-700'
-                        : 'no-underline border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800',
-                    'block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
-                )}
-                aria-current={item.current ? 'page' : undefined}
-            >
-                {item.name}
-            </Disclosure.Button>
-        ))}
-    </div>);
+export function CreateLoginButton() {
+    if (!useLoginStatus()) {
+            return (
+                <button
+                type="button"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >Login
+            </button>);
+    } 
 }
 
-export function CreateLoginButton() {
-    return (
-        <button
-            type="button"
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >Login
-        </button>);
-}
 export function CreateMenuItem() {
     return (
         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -192,69 +183,76 @@ export function CreateMenuItem() {
 }
 
 export function CreateLoginProfile() {
-    return (
-        <div>
-            <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                <span className="sr-only">Open user menu</span>
-                <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
-            </Menu.Button>
-        </div>
-    );
-}
-
-export function CreateDropDownMenu() {
-    return (
-        <Menu as="div" className="relative ml-3">
+	if (useLoginStatus()) {
+        return (
             <div>
-                <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     <span className="sr-only">Open user menu</span>
                     <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
                 </Menu.Button>
             </div>
-            <Transition
-                as={Fragment}
-                enter="transition ease-out duration-200"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-            >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    {userNavigation.map((item) => (
-                        <Menu.Item key={item.name}>
-                            {({ active }) => (
-                                <a
-                                    href={item.href}
-                                    className={classNames(
-                                        active ? 'bg-gray-100' : '',
-                                        'no-underline block px-4 py-2 text-sm text-gray-700'
-                                    )}
-                                >
-                                    {item.name}
-                                </a>
-                            )}
-                        </Menu.Item>
-                    ))}
-                </Menu.Items>
-            </Transition>
-        </Menu>);
+        );
+	}   
 }
 
-export function CreateMobileLoginNavigation1() {
-    return (
-        <div className="mt-3 space-y-1">
-            {userNavigation.map((item) => (
-                <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+export function CreateDropDownMenu() {
+    if (useLoginStatus()) {
+        return (
+            <Menu as="div" className="relative ml-3">
+                <div>
+                    <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        <span className="sr-only">Open user menu</span>
+                        <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                    </Menu.Button>
+                </div>
+                <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-200"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
                 >
-                    {item.name}
-                </Disclosure.Button>
-            ))}
-        </div>);
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        {userNavigation.map((item) => (
+                            <Menu.Item key={item.name}>
+                                {({ active }) => (
+                                    <a
+                                        href={item.href}
+                                        className={classNames(
+                                            active ? 'bg-gray-100' : '',
+                                            'no-underline block px-4 py-2 text-sm text-gray-700'
+                                        )}
+                                    >
+                                        {item.name}
+                                    </a>
+                                )}
+                            </Menu.Item>
+                        ))}
+                    </Menu.Items>
+                </Transition>
+            </Menu>);
+	}
+}
+
+/** Navigation items for profile items for mobile version  */
+export function CreateMobileProfileNavigation() {
+	if (useLoginStatus()) {
+        return (
+            <div className="mt-3 space-y-1">
+                {userNavigation.map((item) => (
+                    <Disclosure.Button
+                        key={item.name}
+                        as="a"
+                        href={item.href}
+                        className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                    >
+                        {item.name}
+                    </Disclosure.Button>
+                ))}
+            </div>);
+	} 
 }
 
 export function CreateMobileMenu() {
@@ -273,15 +271,52 @@ export function CreateMobileMenu() {
         </div>);
 }
 
-export function CreateMobileLoginProfil() {
+/** Profile view for for mobile version  */
+export function CreateMobileLoggedProfile() {
+    if (useLoginStatus()) {
+        return (
+            <div className="flex items-center px-4">
+                <div className="flex-shrink-0">
+                    <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                </div>
+                <div className="ml-3">
+                    <div className="text-base font-medium text-gray-800">{user.name}</div>
+                </div>
+            </div>);
+    } else { return (CreateMobileLoginButton())}
+    
+}
+
+function CreateMobileLoginButton() {
     return (
-        <div className="flex items-center px-4">
-            <div className="flex-shrink-0">
-                <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
-            </div>
-            <div className="ml-3">
-                <div className="text-base font-medium text-gray-800">{user.name}</div>
-            </div>
+        <button
+            type="button"
+            className="inline-flex items-center rounded border border-transparent ml-3 mb-3 bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >Login
+        </button>);
+    
+}
+
+/** Navigation items for the mobile version */
+export function CreateMobileNavigation() {
+    return (
+        <div className="space-y-1 pt-2 pb-3">
+            {topNavigation.map((item) => (
+                <Disclosure.Button
+                    key={item.name}
+                    as="a"
+                    href={item.href}
+                    className={classNames(
+                        item.current
+                            ? 'no-underline bg-indigo-50 border-indigo-500 text-indigo-700'
+                            : 'no-underline border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800',
+                        'block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
+                    )}
+                    aria-current={item.current ? 'page' : undefined}
+                >
+                    {item.name}
+                </Disclosure.Button>
+            ))}
         </div>);
 }
 
