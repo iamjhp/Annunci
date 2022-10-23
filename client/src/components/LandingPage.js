@@ -1,10 +1,10 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import {
     CreateFooterNavigation, CreateHeaderTitle, CreateLoginProfile,
     CreateLogo, CreateMainContent, CreateMenuItem, CreateMobileLoggedProfile,
-    CreateMobileNavigation, CreateMobileProfileNavigation, CreateTopNavigation, CreateLoginButton} from './LandingPageComponents'
+    CreateMobileNavigation, CreateMobileProfileNavigation, CreateTopNavigation, CreateLoginButton, CreateAdButton} from './LandingPageComponents'
 
 
 export default function LandingPage() {
@@ -70,12 +70,14 @@ export default function LandingPage() {
                 </Disclosure>
 
                 {/* Body */}
-                <div className="py-10 h-full">
+                <div className="pt-10 h-full">
                     <header>
                         <CreateHeaderTitle/>
+                        <CreateAdButton />
                     </header>
                     <main>
-                        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                       
+                        <div className="mt-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
                             {/* Ad Content */}
                             <CreateMainContent/>
                         </div>

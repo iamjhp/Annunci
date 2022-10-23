@@ -1,10 +1,12 @@
 import { Fragment, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon, PlusIcon } from '@heroicons/react/24/outline'
 
 
 const logoName = 'Annunci'
 const logo = 'https://1000logos.net/wp-content/uploads/2017/03/McDonalds-logo.png'
 const title = 'Entdecke die neuesten Inserate'
+const createAdButtonName = 'Inserat aufgeben'
 
 ///User who logged in
 const user = {
@@ -16,7 +18,7 @@ const user = {
 
 const topNavigation = [
     { name: 'Home', href: '#', current: true },
-    { name: 'Inserat aufgeben', href: '#', current: false },
+    { name: 'FAQ', href: '#', current: false },
 ]
 
 const userNavigation = [
@@ -32,7 +34,7 @@ const footerNavigation = {
     ],
     customerService: [
         { name: 'Contact', href: '#' },
-        { name: 'FAQ', href: '#' },
+        { name: 'Jobs', href: '#' },
     ],
 }
 
@@ -88,12 +90,11 @@ export function CreateTopNavigation() {
 export function CreateFooterNavigation() {
     return (
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="py-10">
+            <div className="py-0">
                 <div className="grid grid-cols-1 md:grid-flow-col md:auto-rows-min md:grid-cols-12 md:gap-x-8 md:gap-y-16">
 
-
                     {/* Sitemap sections */}
-                    <div className="col-span-6 mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-8 md:col-start-3 md:row-start-1 md:mt-0 lg:col-span-6 lg:col-start-2">
+                    <div className="px-0 col-span-6 mt-10 grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-8 md:col-start-3 md:row-start-1 md:mt-0 lg:col-span-6 lg:col-start-2">
                         <div className="grid grid-cols-1 gap-y-12 sm:col-span-2 sm:grid-cols-2 sm:gap-x-8">
                             <div>
                                 <h3 className="text-sm font-medium text-gray-900">Company</h3>
@@ -136,6 +137,18 @@ export function CreateHeaderTitle() {
             <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">{title}</h1>
     </div>
     );
+}
+
+export function CreateAdButton() {
+    return (
+        <button
+            type="button"
+            className="mr-5 float-right inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >
+            <PlusIcon className="mr-35 ml-0.5 mr-2 h-4 w-4" aria-hidden="true" />
+            {createAdButtonName}
+        </button>
+        );
 }
 
 /** Body space for the ads */
