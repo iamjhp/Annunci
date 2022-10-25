@@ -1,16 +1,10 @@
 import './App.css';
-import Home from './components/Home';
+import React from 'react'
+import { Button } from '@mantine/core';
+import LandingPage from './components/LandingPage.js';
 
 function App() {
-  return (
-    <div>
-      <h1 className="text-9xl font-bold underline text-yellow-500">
-        Hello world!
-      </h1>
-      <Home />
-    </div>
-    
-  );
+  return LandingPage();
 }
 
 export default App;
