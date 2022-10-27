@@ -1,5 +1,6 @@
 import axios from 'axios'
 const baseUrl = '/api/items'
+const serverUrl = 'http://localhost:3001'
 
 const getAllImages = async () => {
   const updateUrl = baseUrl + `/images`
@@ -7,16 +8,30 @@ const getAllImages = async () => {
   return request.data
 }
 
-const makeImageLinkes = async (id) => {
-  const updateUrl = baseUrl + `/images/${id}`
-  console.log(updateUrl)
-  const request = await axios.get(updateUrl)
+const makeImageLink = (id) => {
+  const updateUrl = serverUrl + baseUrl + `/images/${id}`
+  return updateUrl
+}
+
+const getAllItems = async () => {
+  const request = await axios.get(baseUrl)
   return request.data
+}
+
+const createAd = async (newObj) => {
+  const response = await axios.post(baseUrl, newObj, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+})
+  return response.data
 }
 
 const adsService = {
   getAllImages,
-  makeImageLinkes
+  makeImageLink,
+  getAllItems,
+  createAd
 }
 
 export default adsService

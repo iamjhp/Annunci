@@ -5,10 +5,10 @@ import {
   Routes, Route
 } from "react-router-dom"
 import Faq from './components/Faq';
-//import Home from './components/Home';
+import Home from './components/Home';
 import Login from './components/LogIn';
 import SignUp from './components/SignUp';
-import AdCard from './components/AdCard';
+import AdForm from './components/AdForm';
 
 function App() {
   return (
@@ -16,10 +16,11 @@ function App() {
       <Menu />
 
       <Routes>
-        <Route path="/" element={<AdCard />}/>
+        <Route path="/" element={<Home />}/>
         <Route path="/faq" element={<Faq />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/signup" element={<SignUp />}/>
+        <Route path="/new-ad" element={<AdForm />}/>
       </Routes>
     </div>
   )

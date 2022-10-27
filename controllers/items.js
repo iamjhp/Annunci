@@ -28,14 +28,18 @@ itemsRouter.post(
     try {
       const body = req.body;
       console.log(req.file);
+      
       const newItem = new Item({
         title: body.title,
         description: body.description,
         owner: 'empty',
+        offer: body.offer,
         price: body.price,
         filename: req.file.filename,
         fileId: req.file.id,
       });
+
+      
 
       const savedNewItem = await newItem.save();
       res.status(201).json(savedNewItem);
