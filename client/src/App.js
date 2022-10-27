@@ -5,9 +5,10 @@ import {
   Routes, Route
 } from "react-router-dom"
 import Faq from './components/Faq';
-import Home from './components/Home';
+//import Home from './components/Home';
 import Login from './components/LogIn';
 import SignUp from './components/SignUp';
+import AdCard from './components/AdCard';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <Menu />
 
       <Routes>
-        <Route path="/" element={<Home />}/>
+        <Route path="/" element={<AdCard />}/>
         <Route path="/faq" element={<Faq />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/signup" element={<SignUp />}/>
