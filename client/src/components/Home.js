@@ -1,25 +1,10 @@
-import { useEffect, useState } from 'react';
-import Test from './Test';
-import { Loader } from '@mantine/core';
-import adsService from '../services/ads'
 
 const Home = () => {
-  const [images, setImages] = useState([]);
-  
-  useEffect(() => {
-    adsService.getAllImages().then((img) => {
-      setImages(img)});
-  }, []);
-
-  return (
+  return(
     <div>
-      {images.length !== 0 ? (
-        <Test images={images} />
-      ) : (
-        <Loader color="gray" size="150" />
-      )}
-    </div>
-  );
+      <h1>Home</h1>
+     </div>
+  )
 };
 
 export default Home;
