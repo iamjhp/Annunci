@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react'
 import Menu from './components/Header';
+import Content from './components/Body';
 import {
   Routes, Route
 } from "react-router-dom"
@@ -13,7 +14,7 @@ function App() {
   return (
     <div>
       <Menu />
-
+      <Content />
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/faq" element={<Faq />}/>

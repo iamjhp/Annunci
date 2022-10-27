@@ -11,6 +11,7 @@ import {
 
 const Header = () => {
   return (
+    <div className="min-h-full ">
     <Popover className="relative bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
@@ -69,8 +70,8 @@ const Header = () => {
                 <div>
                   <img
                     className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt="Your Company"
+                    src={logo}
+                    alt="Annunci"
                   />
                 </div>
                 <div className="-mr-2">
@@ -100,7 +101,7 @@ const Header = () => {
                   Sign up
                 </Link>
                 <p className="mt-6 text-center text-base font-medium text-gray-500">
-                  Existing customer?{' '}
+                Du hast schon ein Konto?{' '}
                   <Link to="/login" className="text-indigo-600 hover:text-indigo-500">
                     Sign in
                   </Link>
@@ -111,6 +112,7 @@ const Header = () => {
         </Popover.Panel>
       </Transition>
     </Popover>
+    </div>
   )
 }  
 
