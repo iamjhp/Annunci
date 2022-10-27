@@ -1,6 +1,6 @@
 import logo from '../image/logo.jpg'
 
-const SignUp = () => {
+const Login = () => {
   return(
       <div className="h-full bg-gray-50 flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -10,7 +10,7 @@ const SignUp = () => {
             src={logo}
             alt="Annunci"
           />
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Neues Konto erstellen</h2>
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">In dein Konto einloggen</h2>
         </div>
 
         {/*Form field email TODO*/}
@@ -19,7 +19,7 @@ const SignUp = () => {
             <form className="space-y-6" action="#" method="POST">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  E-mail 
+                  E-mail
                 </label>
                 <div className="mt-1">
                   <input
@@ -39,7 +39,7 @@ const SignUp = () => {
                   Passwort
                 </label>
                 <div className="mt-1">
-                  <input
+                <input                   
                     id="password"
                     name="password"
                     type="password"
@@ -47,33 +47,29 @@ const SignUp = () => {
                     required
                     className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   />
+                  
+                 
                 </div>
               </div>
 
-              <div>
-                {/*Form field repeat password  TODO*/}
-                <label htmlFor="repeatPassword" className="block text-sm font-medium text-gray-700">
-                  Passwort bestätigen
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="repeatPassword"
-                    name="repeatPassword"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                </div>
+                {/*Add routing to reset password TODO*/}
+                <div className="text-sm">
+                  <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                    Passwort vergessen?
+                  </a>
                 </div>
               </div>
 
-              {/*SignUp Button  TODO*/}
+              {/*SignIn Button  TODO*/}
               <div>
                 <button
                   type="submit"
                   className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
-                  Jetzt registrieren
+                  Sign in
                 </button>
               </div>
             </form>
@@ -90,11 +86,11 @@ const SignUp = () => {
 
              
               <p className="mt-2 text-center text-sm text-gray-600">
-              Du hast schon ein Konto?
+              Hast du noch kein Konto?
 
-              {/*Add routing to loggin TODO*/}
-              <a href="" className="ml-2 font-medium text-indigo-600 hover:text-indigo-500">
-              Einloggen
+              {/*Add routing TODO*/}
+              <a href="#" className="ml-2 font-medium text-indigo-600 hover:text-indigo-500">
+              Jetzt registrieren.
               </a>
             </p>
               
@@ -107,4 +103,4 @@ const SignUp = () => {
 }
 
 
-export default SignUp
+export default Login
