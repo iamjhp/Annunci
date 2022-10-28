@@ -8,6 +8,7 @@ import Faq from './components/Faq';
 import Home from './components/Home';
 import Login from './components/LogIn';
 import SignUp from './components/SignUp';
+import AdForm from './components/AdForm';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/faq" element={<Faq />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/signup" element={<SignUp />}/>
+        <Route path="/new-ad" element={<AdForm />}/>
       </Routes>
     </div>
   )
