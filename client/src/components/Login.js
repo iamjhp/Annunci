@@ -9,7 +9,7 @@ const Login = () => {
   const [pwd, setPwd] = useState('');
   const [errMsg, setErrMsg] = useState('');
 
-  //for debugging
+  //for debuging
   const testEmail = 'test@hotmail.com';
   const testPwd = 'test123';
 
