@@ -1,7 +1,9 @@
 import logo from '../image/logo.jpg'
 import {useState, useEffect, useRef} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate()
   const userRef = useRef();
   const errRef = useRef();
 
@@ -46,12 +48,7 @@ const Login = () => {
   return(
     <>
     {success ? (
-      <section>
-
-         {/* put router link here TODO*/}
-        <h1> you are logged in!</h1>
-
-      </section>
+          navigate('/')   
     ):(
      
       <div className="h-full bg-gray-50 flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -149,8 +146,7 @@ const Login = () => {
               <p className="mt-2 text-center text-sm text-gray-600">
               Hast du noch kein Konto?
 
-              {/*Add routing TODO*/}
-              <a href="#" className="ml-2 font-medium text-indigo-600 hover:text-indigo-500">
+              <a href="/signUp" className="ml-2 font-medium text-indigo-600 hover:text-indigo-500">
               Jetzt registrieren.
               </a>
             </p>

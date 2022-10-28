@@ -1,7 +1,7 @@
 import logo from '../image/logo.jpg'
 import {useState, useEffect, useRef} from 'react'
+import { useNavigate } from 'react-router-dom';
 
-const EMAIL_REGEX = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
 {/*
 At least one digit [0-9]
 At least one lowercase character [a-z]
@@ -9,8 +9,10 @@ At least one uppercase character [A-Z]
 At least one special character [*.!@#$%^&(){}[]:;<>,.?/~_+-=|\]
 At least 4 characters in length, but no more than 32.*/}
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,32}$/; 
+const EMAIL_REGEX = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
 
 const SignUp = () => {
+  const navigate = useNavigate()
   const userRef = useRef();
   const errRef = useRef();
 
@@ -23,7 +25,6 @@ const SignUp = () => {
   const [confirmPwd, setConfirmPwd] = useState('');
   const [validConfirmPwd, setValidConfirmPwd] =useState(false);
 
-  const [errMsgInvalidInput, setErrMsgInvalidInput] = useState('');
   const [errMsgInvalidEmail, setErrMsgInvalidEmail] = useState('');
   const [errMsgInvalidPassword, setErrMsgInvalidPassword] = useState('');
   const [errMsgInvalidConfirmPwd, setErrMsgInvalidConfirmPwd] = useState('');
@@ -31,19 +32,21 @@ const SignUp = () => {
   //delete after merge (use routing)
   const [success,setSuccess] = useState('');
   
-
+  
   useEffect(() => {
     userRef.current.focus();
   }, [])
 
+  //validate email syntax
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
-}, [email])
+  }, [email])
 
-useEffect(() => {
+  //validate pwd syntax and checks if the pwd & confirmPwd is equal
+  useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
     setValidConfirmPwd(pwd === confirmPwd);
-}, [pwd, confirmPwd])
+  }, [pwd, confirmPwd])
   
   //clear the errormessage if the user changes user or pwd state
   useEffect(() => {
@@ -55,7 +58,7 @@ useEffect(() => {
   
   //handles submit request
   const handleSubmit = async (e) => {
-    console.log(validEmail, validPwd, validConfirmPwd)
+
     {/* Refactoring registration handling in other function */}
     if (!validEmail || !validPwd || !validConfirmPwd) {
       e.preventDefault();
@@ -76,20 +79,12 @@ useEffect(() => {
     setConfirmPwd('');
 
     setSuccess(true);
+    }
   }
- 
-  }
-
   return(
     <>
     {success ? (
-      <section>
-
-        <h1> you are logged in!</h1>
-      <span className="line">
-        {/* put router link here for succeed sign up*/}
-      </span>
-      </section>
+      navigate("/")
     ):
       <div className="h-full bg-gray-50 flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -146,7 +141,7 @@ useEffect(() => {
                     required
                     className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   />
-                    {/* Errormessage first pwd*/}
+                    {/* Errormessage invalid pwd*/}
                <section>
                   <p ref={errRef} className={ errMsgInvalidPassword ? "text-red-600 errmsg" :
                   "offscreen"} aria-live="assertive">{errMsgInvalidPassword}</p>
@@ -171,7 +166,7 @@ useEffect(() => {
                     className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 
                  />
-                   {/* Errormessage confirm pwd*/}
+                   {/* Errormessage invalid confirm pwd*/}
                <section>
                   <p ref={errRef} className={ errMsgInvalidConfirmPwd ? "text-red-600 errmsg" :
                   "offscreen"} aria-live="assertive">{errMsgInvalidConfirmPwd}</p>
@@ -179,7 +174,7 @@ useEffect(() => {
                 </div>
               </div>
 
-              {/*SignUp Button  TODO: routing*/}
+              {/*SignUp Button*/}
               <div>
                 <button
                   type="submit"
@@ -204,8 +199,7 @@ useEffect(() => {
               <p className="mt-2 text-center text-sm text-gray-600">
               Du hast schon ein Konto?
 
-              {/*Add routing to loggin TODO*/}
-              <a href="" className="ml-2 font-medium text-indigo-600 hover:text-indigo-500">
+              <a href="/login" className="ml-2 font-medium text-indigo-600 hover:text-indigo-500">
               Einloggen
               </a>
             </p>
