@@ -1,42 +1,79 @@
 import logo from '../image/logo.jpg'
 import {useState, useEffect, useRef} from 'react'
 
+const EMAIL_REGEX = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
+{/*
+At least one digit [0-9]
+At least one lowercase character [a-z]
+At least one uppercase character [A-Z]
+At least one special character [*.!@#$%^&(){}[]:;<>,.?/~_+-=|\]
+At least 4 characters in length, but no more than 32.*/}
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,32}$/; 
+
 const SignUp = () => {
   const userRef = useRef();
   const errRef = useRef();
 
-  const [user, setUser] = useState('');
+  const [email, setEmail] = useState('');
+  const [validEmail, setValidEmail] = useState(false);
+
   const [pwd, setPwd] = useState('');
+  const [validPwd, setValidPwd] = useState(false);
+
   const [confirmPwd, setConfirmPwd] = useState('');
-  const [errMsg, setErrMsg] = useState('');
+  const [validConfirmPwd, setValidConfirmPwd] =useState(false);
+
+  const [errMsgInvalidInput, setErrMsgInvalidInput] = useState('');
+  const [errMsgInvalidEmail, setErrMsgInvalidEmail] = useState('');
+  const [errMsgInvalidPassword, setErrMsgInvalidPassword] = useState('');
+  const [errMsgInvalidConfirmPwd, setErrMsgInvalidConfirmPwd] = useState('');
 
   //delete after merge (use routing)
   const [success,setSuccess] = useState('');
+  
 
-  const validateEmail = (email) => {
-    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if(email.value.match(mailformat))
-    {return false;
-    }return true;
-  };
+  useEffect(() => {
+    userRef.current.focus();
+  }, [])
 
+  useEffect(() => {
+    setValidEmail(EMAIL_REGEX.test(email));
+}, [email])
 
-
+useEffect(() => {
+    setValidPwd(PWD_REGEX.test(pwd));
+    setValidConfirmPwd(pwd === confirmPwd);
+}, [pwd, confirmPwd])
+  
   //clear the errormessage if the user changes user or pwd state
   useEffect(() => {
-    setErrMsg('');
-  }, [user,pwd])
+    setErrMsgInvalidEmail('');
+    setErrMsgInvalidPassword('');
+    setErrMsgInvalidConfirmPwd('');
+  }, [email, pwd, confirmPwd])
 
+  
   //handles submit request
   const handleSubmit = async (e) => {
-    if (pwd != confirmPwd) {
+    console.log(validEmail, validPwd, validConfirmPwd)
+    {/* Refactoring registration handling in other function */}
+    if (!validEmail || !validPwd || !validConfirmPwd) {
+      e.preventDefault();
+      if(!validEmail){
+        setErrMsgInvalidEmail("Ungültige E-Mail-Adresse")
+      }if(!validPwd){
+        setErrMsgInvalidPassword("Passwort muss folgendes enthalten: mindestens eine Ziffer, ein Kleinbuchstaben, ein Grossbuchstaben, ein Sonderzeichen und 8 Zeichen lang sein")     
+  
+      }else(
+        setErrMsgInvalidConfirmPwd("Die eingegebenen Passwörter stimmen nicht überein.")
+      )
       setSuccess(false);
      
   }else {
     e.preventDefault();
-    console.log(user,pwd,confirmPwd);
-    setUser('');
+    setEmail('');
     setPwd('');
+    setConfirmPwd('');
 
     setSuccess(true);
   }
@@ -50,7 +87,7 @@ const SignUp = () => {
 
         <h1> you are logged in!</h1>
       <span className="line">
-        {/* put router link here*/}
+        {/* put router link here for succeed sign up*/}
       </span>
       </section>
     ):
@@ -65,10 +102,10 @@ const SignUp = () => {
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Neues Konto erstellen</h2>
         </div>
 
-        {/*Form field email TODO*/}
+        {/*Form field email*/}
         <div className="h-full mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form onSubmit ={handleSubmit} className="space-y-6" action="#" method="POST">
+            <form onSubmit ={handleSubmit} className="space-y-6" action="#" >
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                   E-mail 
@@ -79,16 +116,21 @@ const SignUp = () => {
                     name="email"
                     type="email"
                     ref={userRef}
-                    onChange={(e) => setUser(e.target.value)}
-                    value={user}
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
                     autoComplete="email"
                     required
                     className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   />
+                    {/* Errormessage invalid email*/}
+               <section>
+                  <p ref={errRef} className={ errMsgInvalidEmail ? "text-red-600 errmsg" :
+                  "offscreen"} aria-live="assertive">{errMsgInvalidEmail}</p>
+                  </section>
                 </div>
               </div>
 
-              {/*Form field passwort TODO*/}
+              {/*Form field passwort*/}
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   Passwort
@@ -104,35 +146,40 @@ const SignUp = () => {
                     required
                     className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   />
+                    {/* Errormessage first pwd*/}
+               <section>
+                  <p ref={errRef} className={ errMsgInvalidPassword ? "text-red-600 errmsg" :
+                  "offscreen"} aria-live="assertive">{errMsgInvalidPassword}</p>
+                  </section>
                 </div>
               </div>
 
               <div>
-                {/*Form field repeat password  TODO*/}
-                <label htmlFor="repeatPassword" className="block text-sm font-medium text-gray-700">
+                {/*Form field confirm password  TODO*/}
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
                   Passwort bestätigen
                 </label>
                 <div className="mt-1">
                   <input
-                    id="repeatPassword"
-                    name="repeatPassword"
+                    id="confirmPassword"
+                    name="confirmPassword"
                     type="password"
                     onChange={(e) => setConfirmPwd(e.target.value)}
                     value={confirmPwd}
                     autoComplete="current-password"
                     required
                     className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  />
-                </div>
 
-                {/* Errormessage*/}
-                <section>
-                  <p ref={errRef} className={errMsg ? "errmsg" :
-                  "offscreen"} aria-live="assertive">{errMsg}</p>
+                 />
+                   {/* Errormessage confirm pwd*/}
+               <section>
+                  <p ref={errRef} className={ errMsgInvalidConfirmPwd ? "text-red-600 errmsg" :
+                  "offscreen"} aria-live="assertive">{errMsgInvalidConfirmPwd}</p>
                   </section>
+                </div>
               </div>
 
-              {/*SignUp Button  TODO*/}
+              {/*SignUp Button  TODO: routing*/}
               <div>
                 <button
                   type="submit"
