@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import {
   Bars3Icon,
@@ -7,9 +7,35 @@ import {
 import logo from '../image/logo.jpg'
 import {
   Link,
+  useNavigate
 } from "react-router-dom"
+import { useSelector, useDispatch } from 'react-redux'
+import { logout, setUser } from '../reducers/authReducer'
+import userService from '../services/user'
+import authSerivce from '../services/auth'
 
 const Header = () => {
+  const user = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const userFromStorage = userService.getUser()
+    if (userFromStorage) {
+      authSerivce.verifyLoggedInUser()
+        .then(res => {
+          if (res === 201) {
+            dispatch(setUser(userFromStorage))
+          }
+        })
+    }
+  }, [dispatch])
+
+  const handleLogOut = () => {
+    navigate('/')
+    dispatch(logout())
+  }
+
   return (
     <Popover className="relative bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -39,17 +65,35 @@ const Header = () => {
               FAQ
             </Link>
           </Popover.Group>
-          <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-            <Link className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900" to="/login">
-              Sign in
-            </Link>
-            <Link
-              className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-              to="/signup"
-            >
-              Sign up
-            </Link>
-          </div>
+          {
+            user == null
+            ? (
+              <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
+                <Link className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900" to="/login">
+                  Sign in
+                </Link>
+                <Link
+                  className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                  to="/signup"
+                >
+                  Sign up
+                </Link>
+              </div>
+            )
+            : (
+              <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
+                <p>hello {user.email}</p>
+                <button
+                  type="button"
+                  onClick={handleLogOut}
+                  className="mr-5 float-right inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Logout
+                </button>
+              </div>
+            )
+          }
+          
         </div>
       </div>
 
