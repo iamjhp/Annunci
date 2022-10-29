@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import adsService from '../services/ads';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux'
 
 const offers = [
   { id: 'sell', title: 'biete' },
@@ -8,6 +9,7 @@ const offers = [
 ];
 
 const AdForm = () => {
+  const user = useSelector(state => state.auth)
   const navigate = useNavigate()
 
   const [file, setFile] = useState('');
@@ -41,6 +43,12 @@ const AdForm = () => {
 
   const handleCancelClick = () => {
     navigate('/')
+  }
+
+  if (!user) {
+    return (
+      navigate('/login')
+    )
   }
 
   return (

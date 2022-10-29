@@ -5,6 +5,7 @@ const imageHelper = require('../utils/imageHelper');
 const config = require('../utils/config')
 
 const mongoose = require("mongoose");
+const { response } = require('../app');
 const url = config.MONGODB_URI
 
 const conn = mongoose.createConnection(url, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -26,9 +27,11 @@ itemsRouter.post(
   imageHelper.upload.single('file'),
   async (req, res, next) => {
     try {
+      if (!req.user) {
+        return response.status(401).json({ error: 'token missing or invalid'})
+      }
       const body = req.body;
-      console.log(req.file);
-      
+
       const newItem = new Item({
         title: body.title,
         description: body.description,
