@@ -1,4 +1,5 @@
 import axios from 'axios'
+import userService from './user'
 const baseUrl = '/api/items'
 const serverUrl = 'http://localhost:3001'
 
@@ -21,7 +22,8 @@ const getAllItems = async () => {
 const createAd = async (newObj) => {
   const response = await axios.post(baseUrl, newObj, {
     headers: {
-      'Content-Type': 'multipart/form-data'
+      'Content-Type': 'multipart/form-data',
+      Authorization: `bearer ${userService.getToken()}`
     }
 })
   return response.data
