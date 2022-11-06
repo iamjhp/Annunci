@@ -14,4 +14,4 @@ const Test = ({ images }) => {
   );
 };
 
-export default Test
+export default Test;

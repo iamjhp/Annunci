@@ -1,27 +1,28 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import AdCard from './AdCard';
-import adsService from '../services/ads'
+import adsService from '../services/ads';
 
 const Home = () => {
-  const [ads, setAds] = useState([])
-  const navigate = useNavigate()
+  const [ads, setAds] = useState([]);
+  const navigate = useNavigate();
 
-  const user = useSelector(state => state.auth)
+  const user = useSelector((state) => state.auth);
 
   useEffect(() => {
     adsService.getAllItems().then((items) => {
-      setAds(items)});
+      setAds(items);
+    });
   }, []);
 
   const handleNewAdButtonClick = () => {
     if (user) {
-      navigate('/new-ad')
+      navigate('/new-ad');
     } else {
-      navigate('/login')
+      navigate('/login');
     }
-  }
+  };
 
   return (
     <div className="min-h-full bg-gray-100">
@@ -44,13 +45,7 @@ const Home = () => {
           {/* Ad Content */}
           <div className="px-4 py-8 sm:px-0">
             <div className="min-h-screen rounded-lg border-gray-200">
-              {
-                ads.length !== 0 ? (
-                  <AdCard ads={ads}/>
-                ) : (
-                  <></>
-                )
-              }
+              {ads.length !== 0 ? <AdCard ads={ads} /> : <></>}
             </div>
           </div>
         </div>

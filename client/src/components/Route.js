@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import Test from './Test';
 import { Loader } from '@mantine/core';
-import adsService from '../services/ads'
+import adsService from '../services/ads';
 
 const Route = () => {
   const [images, setImages] = useState([]);
-  
+
   useEffect(() => {
     adsService.getAllImages().then((img) => {
-      setImages(img)});
+      setImages(img);
+    });
   }, []);
 
   return (
@@ -20,6 +21,6 @@ const Route = () => {
       )}
     </div>
   );
-}
+};
 
-export default Route
+export default Route;

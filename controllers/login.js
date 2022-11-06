@@ -4,8 +4,6 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 loginRouter.get('/', (req, res) => {
-  console.log(req.user)
-  console.log("--------------")
   if (!req.user) {
     return res.status(401).json({ error: 'token missing or invalid'})
   }

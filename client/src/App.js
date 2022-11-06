@@ -9,6 +9,7 @@ import Home from './components/Home';
 import Login from './components/LogIn';
 import SignUp from './components/SignUp';
 import AdForm from './components/AdForm';
+import AdDetails from './components/AdDetails';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/login" element={<Login />}/>
         <Route path="/signup" element={<SignUp />}/>
         <Route path="/new-ad" element={<AdForm />}/>
+        <Route path="ads/:id" element={<AdDetails />}/>
       </Routes>
     </div>
   )

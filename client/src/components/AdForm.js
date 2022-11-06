@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import adsService from '../services/ads';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
 
 const offers = [
   { id: 'sell', title: 'biete' },
@@ -9,8 +9,8 @@ const offers = [
 ];
 
 const AdForm = () => {
-  const user = useSelector(state => state.auth)
-  const navigate = useNavigate()
+  const user = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const [file, setFile] = useState('');
 
@@ -26,29 +26,28 @@ const AdForm = () => {
   }
 
   const handleOnSubmit = async (event) => {
-    event.preventDefault()
-    try{
-      const formData = new FormData()
-      formData.append("file", event.target["file-upload"].files[0])
-      formData.append("title", event.target["form-title"].value)
-      formData.append("description", event.target["form-description"].value)
-      formData.append("price", event.target["form-price"].value)
-      formData.append("offer", event.target["radio-button"].value)
-      await adsService.createAd(formData)
-      navigate('/')
-    } catch( e ) {
-      console.error(e)
+    event.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append('file', event.target['file-upload'].files[0]);
+      formData.append('title', event.target['form-title'].value);
+      formData.append('description', event.target['form-description'].value);
+      formData.append('price', event.target['form-price'].value);
+      formData.append('offer', event.target['radio-button'].value);
+      formData.append('owner', user.email)
+      await adsService.createAd(formData);
+      navigate('/');
+    } catch (e) {
+      console.error(e);
     }
-  }
+  };
 
   const handleCancelClick = () => {
-    navigate('/')
-  }
+    navigate('/');
+  };
 
   if (!user) {
-    return (
-      navigate('/login')
-    )
+    return navigate('/login');
   }
 
   return (
@@ -58,7 +57,10 @@ const AdForm = () => {
           {/* Ad Content */}
           <div className="px-4 py-8 sm:px-0">
             <div className="h-96 rounded-lg border-gray-200">
-              <form onSubmit={handleOnSubmit} className="space-y-8 divide-y divide-gray-200">
+              <form
+                onSubmit={handleOnSubmit}
+                className="space-y-8 divide-y divide-gray-200"
+              >
                 <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
                   <div className="space-y-6 sm:space-y-5">
                     <div>

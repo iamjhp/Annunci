@@ -18,13 +18,11 @@ conn.once("open", () => {
 
 itemsRouter.get('/', async (req, res) => {
   const items = await Item.find({});
-
   res.json(items);
 });
 
 itemsRouter.get('/:id', async (req, res) => {
   const item = await Item.findById(req.params.id)
-
   res.json(item)
 })
 
@@ -41,7 +39,7 @@ itemsRouter.post(
       const newItem = new Item({
         title: body.title,
         description: body.description,
-        owner: 'empty',
+        owner: body.owner,
         offer: body.offer,
         price: body.price,
         filename: req.file.filename,
