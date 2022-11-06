@@ -1,6 +1,12 @@
 import adsService from "../services/ads";
+import { useNavigate } from 'react-router-dom';
 
 const AdCard = ({ ads }) => {
+  const navigate = useNavigate()
+
+  const handleDetailsButtonClick = (event) => {
+    navigate(`/ads/${event.target.id}`)
+  }
 
   return (
     <div className="mx-auto grid max-w-lg gap-5 lg:max-w-none lg:grid-cols-3">
@@ -28,6 +34,8 @@ const AdCard = ({ ads }) => {
             <div className="mt-6 flex items-center justify-center">
               <button
                 type="button"
+                id={post.id}
+                onClick={handleDetailsButtonClick}
                 className="mr-5 float-right inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Show details

@@ -22,6 +22,12 @@ itemsRouter.get('/', async (req, res) => {
   res.json(items);
 });
 
+itemsRouter.get('/:id', async (req, res) => {
+  const item = await Item.findById(req.params.id)
+
+  res.json(item)
+})
+
 itemsRouter.post(
   '/',
   imageHelper.upload.single('file'),

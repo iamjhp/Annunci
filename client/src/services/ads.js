@@ -19,6 +19,12 @@ const getAllItems = async () => {
   return request.data
 }
 
+const getItemById = async (id) => {
+  const updateUrl = baseUrl + `/${id}`
+  const request = await axios.get(updateUrl)
+  return request.data
+}
+
 const createAd = async (newObj) => {
   const response = await axios.post(baseUrl, newObj, {
     headers: {
@@ -33,6 +39,7 @@ const adsService = {
   getAllImages,
   makeImageLink,
   getAllItems,
+  getItemById,
   createAd
 }
 
