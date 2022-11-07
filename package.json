@@ -6,8 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit",
-    "start:test": "cross-env NODE_ENV=test node injdex.js"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit"
   },
   "repository": {
     "type": "git",
@@ -34,6 +33,11 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "nodemon": "^2.0.20"
+    "jest": "^29.2.2",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

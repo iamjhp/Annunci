@@ -12,11 +12,9 @@ const itemSchema = new mongoose.Schema({
   offer: String,
 
   filename: {
-    required: true,
     type: String,
   },
   fileId: {
-    required: true,
     type: String,
   },
   createdAt: {
