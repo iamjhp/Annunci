@@ -5,7 +5,6 @@ const imageHelper = require('../utils/imageHelper');
 const config = require('../utils/config')
 
 const mongoose = require("mongoose");
-const { response } = require('../app');
 const url = config.MONGODB_URI
 
 const conn = mongoose.createConnection(url, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -32,9 +31,11 @@ itemsRouter.post(
   async (req, res, next) => {
     try {
       if (!req.user) {
-        return response.status(401).json({ error: 'token missing or invalid'})
+        return res.status(401).json({ error: 'token missing or invalid'})
       }
       const body = req.body;
+      let fileName = req.file ? req.file.filename : ''
+      let fileId = req.file ? req.file.id : ''
 
       const newItem = new Item({
         title: body.title,
@@ -42,8 +43,8 @@ itemsRouter.post(
         owner: body.owner,
         offer: body.offer,
         price: body.price,
-        filename: req.file.filename,
-        fileId: req.file.id,
+        filename: fileName,
+        fileId: fileId,
       });
 
       
