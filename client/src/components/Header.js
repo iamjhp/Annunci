@@ -58,9 +58,9 @@ const Header = () => {
               </Link>
               <Link
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
-                to="/faq"
+                to="/about"
               >
-                FAQ
+                About
               </Link>
             </Popover.Group>
             {user == null ? (
@@ -130,11 +130,11 @@ const Header = () => {
                       </span>
                     </Link>
                     <Link
-                      to="/faq"
+                      to="/about"
                       className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
                     >
                       <span className="ml-3 text-base font-medium text-gray-900">
-                        FAQ
+                        About
                       </span>
                     </Link>
                   </nav>
