@@ -1,7 +1,7 @@
 import { Fragment, useEffect } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import logo from '../image/logo.jpg';
+import logo from '../image/Logo_v2.jpg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, setUser } from '../reducers/authReducer';
@@ -41,6 +41,7 @@ const Header = () => {
               >
                 <span className="sr-only">Annunci</span>
                 <img className="h-8 w-auto sm:h-10" src={logo} alt="Annunci" />
+                
               </Link>
             </div>
             <div className="-my-2 -mr-2 md:hidden">
@@ -51,13 +52,13 @@ const Header = () => {
             </div>
             <Popover.Group as="nav" className="hidden space-x-10 md:flex">
               <Link
-                className="text-base font-medium text-gray-500 hover:text-gray-900"
+                className="text-base font-medium text-gray-700 hover:text-gray-900"
                 to="/"
               >
                 Home
               </Link>
               <Link
-                className="text-base font-medium text-gray-500 hover:text-gray-900"
+                className="text-base font-medium text-gray-700 hover:text-gray-900"
                 to="/about"
               >
                 About
@@ -79,8 +80,10 @@ const Header = () => {
                 </Link>
               </div>
             ) : (
-              <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
+              <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0 ">
+                <div className='mr-5  font-medium text-gray-500'>
                 <p>hello {user.email}</p>
+                </div>
                 <button
                   type="button"
                   onClick={handleLogOut}
