@@ -19,13 +19,14 @@ const AdCard = ({ ads }) => {
           <div className="flex flex-1 flex-col justify-between bg-white p-6">
             <div className="flex-1">
               <p className="text-xl font-semibold text-gray-900">
-                <span className="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
-                  {post.offer}
-                </span>
-                {post.title}
+              {post.title}
               </p>
-              <span className="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
-                price: {post.price}
+              <span className="inline-flex items-center rounded bg-green-100 px-0.5 py-0.5 text-xs font-medium text-green-800">
+                  Typ: {post.offer}
+              </span>
+              <div></div>
+              <span className="inline-flex items-center rounded bg-green-100 px-0.5 py-0.5 text-xs font-medium text-green-800">
+                Preis: {post.price} CHF
               </span>
               <p className="mt-3 text-base text-gray-500">{post.description.substring(0, 100)}</p>
             </div>
