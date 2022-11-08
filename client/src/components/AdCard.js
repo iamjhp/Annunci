@@ -27,7 +27,7 @@ const AdCard = ({ ads }) => {
               <span className="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
                 price: {post.price}
               </span>
-              <p className="mt-3 text-base text-gray-500">{post.description}</p>
+              <p className="mt-3 text-base text-gray-500">{post.description.substring(0, 100)}</p>
             </div>
             <div className="mt-6 flex items-center justify-center">
               <Link
