@@ -53,7 +53,7 @@ const AdForm = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       <main>
-        <div className="min-h-fit mt-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="h-full mt-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
           {/* Ad Content */}
           <div className="px-4 py-8 sm:px-0">
             <div className="h-96 rounded-lg border-gray-200">

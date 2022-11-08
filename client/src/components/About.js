@@ -58,14 +58,14 @@ const features = [
   },
   {
     name: 'Benutzerkonto',
-    description: 'Ihr Annunci-Konto ist Ihre persönliche Visitenkarte bei Annunci. Über Ihr Konto können Sie Inserate erstellen und bearbeiten.',
+    description: 'Ihr Annunci-Konto ist Ihre persönliche Visitenkarte bei Annunci.',
     icon: IdentificationIcon,
   },
 ]
 
 const About = () => {
   return (
-    <div className="relative bg-white py-16 sm:py-24 lg:py-32">
+    <div className="relative bg-gray bg-gray-100 py-16 sm:py-24 lg:py-32">
       <div className="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="text-lg font-semibold text-indigo-600">Annunci</h2>
         <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -95,7 +95,7 @@ const About = () => {
         </div>
       </div>
 
-      <div className="bg-gray-50">
+      <div className="bg-gray-100">
       <div className="mx-auto max-w-7xl py-12 px-4 sm:py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl divide-y-2 divide-gray-200">
           <h2 className="text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
