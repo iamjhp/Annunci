@@ -8,11 +8,16 @@ const api = supertest(app)
 const helper = require('./test_helper')
 const Item = require('../models/item')
 const User = require('../models/user')
+const ImageFile = require('../models/imageFiles')
+const ImageChunk = require('../models/imageChunks')
 
 describe('when there are some items in database', () => {
   beforeEach(async () => {
     await Item.deleteMany({})
     await Item.insertMany(helper.initialItems)
+
+    await ImageFile.deleteMany({})
+    await ImageChunk.deleteMany({})
   })
 
   test('those are returned as json', async () => {
