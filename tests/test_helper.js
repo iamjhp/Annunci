@@ -34,5 +34,6 @@ const ItemsInDB = async () => {
 
 module.exports = {
   ItemsInDB,
-  initialItems
+  initialItems,
+  initialUser
 }
