@@ -55,7 +55,7 @@ Client:
     
 3.  Complete the form.
 
-    <img width="654" alt="image" src="https://user-images.githubusercontent.com/79464708/203962588-52932f69-650f-468b-9085-5b8a37cac75f.png">
+    <img width="722" alt="image" src="https://user-images.githubusercontent.com/79464708/203962588-52932f69-650f-468b-9085-5b8a37cac75f.png">
    
 
 <a name="design"></a>
