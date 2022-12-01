@@ -1,17 +1,11 @@
 import logo from '../image/logo.jpg';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import accountService from '../services/account';
 
-{
-  /*
-At least one digit [0-9]
-At least one lowercase character [a-z]
-At least one uppercase character [A-Z]
-At least one special character [*.!@#$%^&(){}[]:;<>,.?/~_+-=|\]
-At least 4 characters in length, but no more than 32.*/
-}
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,32}$/;
 const EMAIL_REGEX =
+  // eslint-disable-next-line no-control-regex
   /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
 
 const SignUp = () => {
@@ -59,11 +53,9 @@ const SignUp = () => {
 
   //handles submit request
   const handleSubmit = async (e) => {
-    {
-      /* Refactoring registration handling in other function */
-    }
+    e.preventDefault();
+
     if (!validEmail || !validPwd || !validConfirmPwd) {
-      e.preventDefault();
       if (!validEmail) {
         setErrMsgInvalidEmail('Ungültige E-Mail-Adresse');
       }
@@ -77,14 +69,20 @@ const SignUp = () => {
         );
       setSuccess(false);
     } else {
-      e.preventDefault();
+      const newAccount = {
+        email: email,
+        password: pwd
+      }
+      accountService.createAccount(newAccount)
+
       setEmail('');
       setPwd('');
       setConfirmPwd('');
 
-      setSuccess(true);
+      navigate('/login');
     }
   };
+
   return (
     <>
       {success ? (
