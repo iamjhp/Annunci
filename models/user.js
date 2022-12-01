@@ -6,7 +6,13 @@ const userSchema = new mongoose.Schema({
     required: true,
     minLength: 3,
   },
-  passwordHash: String
+  passwordHash: String,
+  ads: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Item'
+    }
+  ],
 })
 
 userSchema.set('toJSON', {

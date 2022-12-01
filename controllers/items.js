@@ -1,12 +1,15 @@
 const itemsRouter = require('express').Router();
 const Item = require('../models/item');
-
+const User = require('../models/user')
 const imageHelper = require('../utils/imageHelper');
 const config = require('../utils/config')
-
 const mongoose = require("mongoose");
 const url = config.MONGODB_URI
 
+/*
+  Create connection to MongoDB using GridFsBucket to save image files
+  GridFs splits a file into chunks during storage
+*/
 const conn = mongoose.createConnection(url, { useNewUrlParser: true, useUnifiedTopology: true });
 let gfsBucket
 conn.once("open", () => {
@@ -25,6 +28,12 @@ itemsRouter.get('/:id', async (req, res) => {
   res.json(item)
 })
 
+/*
+  Post Request to save an Ad
+  First, it checks whether the user has a valid token
+  If yes, then an ad is created and confirmed with 201
+  otherwise 401 error
+*/
 itemsRouter.post(
   '/',
   imageHelper.upload.single('file'),
@@ -37,6 +46,10 @@ itemsRouter.post(
       let fileName = req.file ? req.file.filename : ''
       let fileId = req.file ? req.file.id : ''
 
+      // find the user in DB to save userId
+      const { email, token } = req.user
+      const user = await User.findOne({ email })
+
       const newItem = new Item({
         title: body.title,
         description: body.description,
@@ -45,14 +58,16 @@ itemsRouter.post(
         price: body.price,
         filename: fileName,
         fileId: fileId,
+        user: user._id
       });
 
+      const savedNewItem = await newItem.save()
+      user.ads = user.ads.concat(savedNewItem._id)
+      await user.save()
       
-
-      const savedNewItem = await newItem.save();
-      res.status(201).json(savedNewItem);
+      res.status(201).json(savedNewItem)
     } catch (e) {
-      next(e);
+      next(e)
     }
   }
 );
