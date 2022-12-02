@@ -1,6 +1,8 @@
 const itemsRouter = require('express').Router();
 const Item = require('../models/item');
 const User = require('../models/user')
+const ImageFile = require('../models/imageFiles')
+const ImageChunk = require('../models/imageChunks')
 const imageHelper = require('../utils/imageHelper');
 const config = require('../utils/config')
 const mongoose = require("mongoose");
@@ -64,13 +66,38 @@ itemsRouter.post(
       const savedNewItem = await newItem.save()
       user.ads = user.ads.concat(savedNewItem._id)
       await user.save()
-      
+
       res.status(201).json(savedNewItem)
     } catch (e) {
       next(e)
     }
   }
 );
+
+itemsRouter.delete('/:id', async (req, res) => {
+  const itemToDelete = await Item.findById(req.params.id)
+  if (!itemToDelete) {
+    return res.status(204).end()
+  }
+
+  if (itemToDelete.user && itemToDelete.user.toString() !== req.user.id) {
+    return response.status(401).json({
+      error: 'only the owner can delete this ad'
+    })
+  }
+
+  // remove ad item in DB
+  await Item.findByIdAndRemove(req.params.id)
+
+  // remove image files and chunks
+  try {
+    gfsBucket.delete(new mongoose.Types.ObjectId(itemToDelete.fileId))
+  } catch (e) {
+    console.log("Error: " + e);
+  }
+
+  res.status(204).end()
+})
 
 itemsRouter.get('/images', async (req, res) => {
   const items = await Item.find({});

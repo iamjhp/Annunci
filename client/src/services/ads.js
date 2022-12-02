@@ -35,12 +35,23 @@ const createAd = async (newObj) => {
   return response.data
 }
 
+const deleteAd = async (id) => {
+  const updatedUrl = baseUrl + `/${id}`
+  return axios.delete(updatedUrl, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `bearer ${userService.getToken()}`
+    }
+})
+}
+
 const adsService = {
   getAllImages,
   makeImageLink,
   getAllItems,
   getItemById,
-  createAd
+  createAd,
+  deleteAd
 }
 
 export default adsService

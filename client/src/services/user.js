@@ -32,12 +32,14 @@ const checkUser = async () => {
 }
 
 const getToken = () => token
+const clearToken = () => token = null
 
 const userService = {
   getUser,
   setUser,
   checkUser,
-  getToken
+  getToken,
+  clearToken
 }
 
 export default userService
