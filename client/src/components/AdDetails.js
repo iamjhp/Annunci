@@ -3,19 +3,46 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import auth from '../services/auth';
+import userService from '../services/user'
+import { useNavigate } from 'react-router-dom';
 
 const AdDetails = () => {
   const [ad, setAd] = useState('');
+  const [isOwner, setIsOwner] = useState(false);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     adsService.getItemById(id).then((item) => setAd(item));
   }, [id]);
 
+  useEffect(() => {
+    const checkIfLoggedUserOwner = async () => {
+      const statusCode = await auth.verifyLoggedInUser()
+      const user = userService.getUser()
+      const adOnwer = await ad.owner
+
+      if (statusCode == 201 && user.email === adOnwer) {
+        setIsOwner(true)
+      }
+    }
+
+    checkIfLoggedUserOwner()
+  }, [ad, isOwner])
+
+  const handleDelete = async () => {
+    await adsService.deleteAd(id)
+    navigate('/');
+  }
+
+  
+
   return (
     <div>
       {ad.fileId ? (
         <div className="bg-gray-100">
+          
           <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
             <div className="lg:max-w-lg lg:self-end">
               <div className="mt-4">
@@ -67,6 +94,20 @@ const AdDetails = () => {
                   </span>
                 </div>
               </section>
+              {
+                isOwner ? (
+                  <button
+                    type="button"
+                    onClick={handleDelete}
+                    className="mr-5 float-right inline-flex items-center rounded-md border border-transparent bg-red-500 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  >
+                    Löschen
+                  </button>
+                ) : (
+                  <></>
+                )
+              }
+
             </div>
 
             {/* Product image */}

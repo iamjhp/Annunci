@@ -2,7 +2,7 @@ import axios from 'axios'
 import userService from './user'
 const baseUrl = '/api/login'
 
-const config = () => {
+let config = () => {
   return {
     headers: {
       Authorization: `bearer ${userService.getToken()}`
@@ -20,6 +20,11 @@ const login = async credentials => {
 
 const logout = () => {
   localStorage.clear()
+  config = {
+    headers: {
+      Authorization: 'empty'
+    }
+  }
 }
 
 const verifyLoggedInUser = async () => {
