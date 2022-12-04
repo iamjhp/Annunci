@@ -35,5 +35,10 @@ const verifyLoggedInUser = async () => {
   }
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default { login, logout, verifyLoggedInUser }
+const authService = {
+  login,
+  logout,
+  verifyLoggedInUser,
+}
+
+export default authService
