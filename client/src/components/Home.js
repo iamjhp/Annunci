@@ -13,7 +13,8 @@ const Home = () => {
   useEffect(() => {
     adsService.getAllItems().then((items) => {
       setAds(items);
-    });
+    })
+
   }, []);
 
   const handleNewAdButtonClick = () => {

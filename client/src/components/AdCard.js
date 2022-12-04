@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const AdCard = ({ ads }) => {
   return (
     <div className="mx-auto grid max-w-lg gap-5 lg:max-w-none lg:grid-cols-3">
-      {ads.map((post) => (
+      {ads.slice().reverse().map((post) => (
         <div
           key={post.id}
           className="flex flex-col overflow-hidden rounded-lg shadow-lg"
