@@ -25,6 +25,10 @@ const itemSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
+  comments: {
+    type: [String],
+    default: [],
+  }
 });
 
 itemSchema.set('toJSON', {
