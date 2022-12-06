@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from 'react';
-import { Popover, Transition } from '@headlessui/react';
+import { Popover, Transition, Disclosure, Menu } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import logo from '../image/Logo_v2.jpg';
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,6 +7,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout, setUser } from '../reducers/authReducer';
 import userService from '../services/user';
 import authSerivce from '../services/auth';
+
+const userNavigation = [
+  { name: 'Meine Inserate', href: '#' },
+  { name: 'Settings', href: '#' },
+];
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
 
 const Header = () => {
   const user = useSelector((state) => state.auth);
@@ -41,7 +50,6 @@ const Header = () => {
               >
                 <span className="sr-only">Annunci</span>
                 <img className="h-8 w-auto sm:h-10" src={logo} alt="Annunci" />
-                
               </Link>
             </div>
             <div className="-my-2 -mr-2 md:hidden">
@@ -81,8 +89,49 @@ const Header = () => {
               </div>
             ) : (
               <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0 ">
-                <div className='mr-5  font-medium text-gray-500'>
-                <p>hello {user.email}</p>
+                <div className="mr-5  font-medium text-gray-500">
+                  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="flex h-16 justify-between">
+                      <div className="hidden sm:ml-6 sm:flex sm:items-center">
+                        {/* Profile dropdown */}
+                        <Menu as="div" className="relative ml-3">
+                          <div>
+                            <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                              <span className="sr-only">Open user menu</span>
+                              <p>{user.email}</p>
+                            </Menu.Button>
+                          </div>
+                          <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-200"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                          >
+                            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                              {userNavigation.map((item) => (
+                                <Menu.Item key={item.name}>
+                                  {({ active }) => (
+                                    <a
+                                      href={item.href}
+                                      className={classNames(
+                                        active ? 'bg-gray-100' : '',
+                                        'block px-4 py-2 text-sm text-gray-700'
+                                      )}
+                                    >
+                                      {item.name}
+                                    </a>
+                                  )}
+                                </Menu.Item>
+                              ))}
+                            </Menu.Items>
+                          </Transition>
+                        </Menu>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <button
                   type="button"
@@ -95,7 +144,8 @@ const Header = () => {
             )}
           </div>
         </div>
-
+        
+        {/* Mobile */}
         <Transition
           as={Fragment}
           enter="duration-200 ease-out"
@@ -142,6 +192,24 @@ const Header = () => {
                     </Link>
                   </nav>
                 </div>
+                {/* TODO */}
+                {user && (
+                  <div className="border-t border-gray-200 pt-4 pb-3">
+                    <div className="mt-3 space-y-1">
+                      {userNavigation.map((item) => (
+                        <Link
+                          key={item.name}
+                          to="/about"
+                          className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
+                        >
+                          <span className="ml-3 text-base font-medium text-gray-900">
+                            {item.name}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="space-y-6 py-6 px-5">
                 <div>
