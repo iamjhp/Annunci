@@ -45,13 +45,20 @@ const deleteAd = async (id) => {
 })
 }
 
+const commentAd = async (id, comment) => {
+  const updatedUrl = baseUrl + `/${id}/commentAd`
+  const response = await axios.post(updatedUrl, {comment: comment})
+  return response.data
+}
+
 const adsService = {
   getAllImages,
   makeImageLink,
   getAllItems,
   getItemById,
   createAd,
-  deleteAd
+  deleteAd,
+  commentAd
 }
 
 export default adsService

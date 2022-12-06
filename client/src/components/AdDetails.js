@@ -5,6 +5,7 @@ import { CheckIcon } from '@heroicons/react/20/solid';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import auth from '../services/auth';
 import userService from '../services/user'
+import CommentSection from './CommentSection';
 import { useNavigate } from 'react-router-dom';
 
 const AdDetails = () => {
@@ -19,16 +20,19 @@ const AdDetails = () => {
 
   useEffect(() => {
     const checkIfLoggedUserOwner = async () => {
-      const statusCode = await auth.verifyLoggedInUser()
       const user = userService.getUser()
-      const adOnwer = await ad.owner
+      if (user != null) {
+        const statusCode = await auth.verifyLoggedInUser()
+        const adOnwer = await ad.owner
 
-      if (statusCode == 201 && user.email === adOnwer) {
-        setIsOwner(true)
+        if (statusCode == 201 && user.email === adOnwer) {
+          setIsOwner(true)
+        }
       }
     }
 
     checkIfLoggedUserOwner()
+    
   }, [ad, isOwner])
 
   const handleDelete = async () => {
@@ -93,21 +97,26 @@ const AdDetails = () => {
                     {ad.owner}
                   </span>
                 </div>
-              </section>
-              {
+                {
                 isOwner ? (
-                  <button
-                    type="button"
-                    onClick={handleDelete}
-                    className="mr-5 float-right inline-flex items-center rounded-md border border-transparent bg-red-500 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    Löschen
-                  </button>
+                  <div className='mb-10'>
+                    <button
+                      type="button"
+                      onClick={handleDelete}
+                      className="mr-5 float-right inline-flex items-center rounded-md border border-transparent bg-red-500 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      Löschen
+                    </button>
+                  </div>
                 ) : (
                   <></>
                 )
               }
-
+              </section>
+              
+              <div>
+                <CommentSection ad={ad} />
+              </div>
             </div>
 
             {/* Product image */}
@@ -127,6 +136,7 @@ const AdDetails = () => {
       ) : (
         <p>not found</p>
       )}
+      
     </div>
   );
 };

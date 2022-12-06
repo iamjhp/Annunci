@@ -1,6 +1,7 @@
 {
-  "extends": [
-    "plugin:cypress/recommended"
-  ],
-  "parser": "babel-eslint"
+  "env": {
+    "browser": true,
+    "es6": true,
+    "cypress/globals": true
+  }
 }

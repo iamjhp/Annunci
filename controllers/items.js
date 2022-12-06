@@ -74,6 +74,19 @@ itemsRouter.post(
   }
 );
 
+itemsRouter.post('/:id/commentAd', async (req, res) => {
+  const { id } = req.params
+  const { comment } = req.body
+  const targetItem = await Item.findById(req.params.id)
+
+  targetItem.comments.push(comment)
+
+  const updtedItem = await Item.findByIdAndUpdate(id, targetItem, { new: true })
+
+  res.json(updtedItem)
+})
+
+
 itemsRouter.delete('/:id', async (req, res) => {
   const itemToDelete = await Item.findById(req.params.id)
   if (!itemToDelete) {
@@ -113,7 +126,7 @@ itemsRouter.get('/images/:id', async (req, res, next) => {
   } catch(e) {
     next(e)
   }
-
 })
+
 
 module.exports = itemsRouter;
