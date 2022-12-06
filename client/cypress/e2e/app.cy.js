@@ -1,6 +1,6 @@
 const path = require('path')
 
-describe('Annunci', function() {
+describe('tests without login', function() {
   beforeEach(function() {
     cy.visit('http://localhost:3000')
   })
@@ -50,37 +50,46 @@ describe('Annunci', function() {
       cy.contains('suche das zu bearbeitende').should('not.exist')
     })
   })
+})
 
-  describe('login', function() {
+describe('tests with login', function() {
+  it ('user can sign up', function() {
+    cy.contains('Sign up').click()
+    cy.get('input:first').type('test@test.ch')
+    cy.get('#password').type('Testzurich12#')
+    cy.get('input:last').type('Testzurich12#')
+    cy.get('button').contains('Jetzt registrieren').click()
+  })
+
+  describe('user is logged in', function() {
     beforeEach(function() {
       cy.visit('http://localhost:3000')
       cy.contains('Sign in').click()
       cy.get('input:first').type('test@test.ch')
-      cy.get('input:last').type('test')
+      cy.get('input:last').type('Testzurich12#')
       cy.get('button').contains('Sign in').click()
     })
-
+  
     it('user can log in', function() {
-      cy.contains("hello test@test.ch")
+      cy.contains("test@test.ch")
     })
-
+  
     it('user can log out', function() {
       cy.contains('Logout').click()
       cy.contains('Sign in')
       cy.contains('Sign up')
     })
-
+  
     it('user can create a new item', function() {
       cy.contains('Inserat aufgeben').click()
       const pic = path.resolve(__dirname)
       const picFile = 'cypress/e2e/test.jpg'
-
+  
       cy.get('#form-title').type("Verkaufe Blumen")
       cy.get('#form-description').type("Hallo Leute, ich verkaufe Blumen")
       cy.get('#form-price').type('1000')
       cy.get('input[type=file]').selectFile(picFile, {force: true})
       cy.contains('Save').click()
     })
-
   })
 })
