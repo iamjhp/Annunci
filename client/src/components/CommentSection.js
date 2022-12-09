@@ -1,11 +1,6 @@
-import { Fragment, useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import userService from '../services/user';
 import adsService from '../services/ads';
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
 
 const CommentSection = ({ ad }) => {
   const [comments, setComments] = useState(ad?.comments);

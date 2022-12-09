@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from 'react';
-import { Popover, Transition, Disclosure, Menu } from '@headlessui/react';
+import { Popover, Transition, Menu } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import logo from '../image/Logo_v2.jpg';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,7 +9,7 @@ import userService from '../services/user';
 import authSerivce from '../services/auth';
 
 const userNavigation = [
-  { name: 'Meine Inserate', href: '#' },
+  { name: 'Meine Inserate', href: '/user/items' },
   { name: 'Settings', href: '#' },
 ];
 
@@ -21,7 +21,7 @@ const Header = () => {
   const user = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const userFromStorage = userService.getUser();
     if (userFromStorage) {
@@ -72,7 +72,7 @@ const Header = () => {
                 About
               </Link>
             </Popover.Group>
-            {user == null ? (
+            {user === null ? (
               <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
                 <Link
                   className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
@@ -144,7 +144,6 @@ const Header = () => {
             )}
           </div>
         </div>
-        
         {/* Mobile */}
         <Transition
           as={Fragment}

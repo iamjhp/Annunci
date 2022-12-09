@@ -10,6 +10,7 @@ import SignUp from './components/SignUp';
 import AdForm from './components/AdForm';
 import AdDetails from './components/AdDetails';
 import About from './components/About';
+import MyItem from './components/MyAds'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/signup" element={<SignUp />}/>
         <Route path="/new-ad" element={<AdForm />}/>
         <Route path="ads/:id" element={<AdDetails />}/>
+        <Route path="/user/items" element={<MyItem />}/>
       </Routes>
     </div>
   )

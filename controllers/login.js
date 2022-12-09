@@ -17,8 +17,16 @@ loginRouter.get('/', (req, res) => {
   if (!decodedToken.id) {
     return res.status(401).json({ error: 'token missing or invalid'})
   }
-
   return res.status(201).end()
+})
+
+loginRouter.get('/loggedUserId', (req, res) => {
+  const token = getTokenFrom(req)
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+  if (!decodedToken.id) {
+    return res.status(401).json({ error: 'token missing or invalid'})
+  }
+  return res.json(decodedToken.id)
 })
 
 loginRouter.post('/', async (req, res) => {
