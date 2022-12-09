@@ -10,7 +10,7 @@ const authSlice = createSlice({
     setUser(state, action) {
       return action.payload
     },
-    logout(state, action) {
+    logout() {
       authService.logout()
       return null
     },

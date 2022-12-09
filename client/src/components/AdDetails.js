@@ -21,18 +21,16 @@ const AdDetails = () => {
   useEffect(() => {
     const checkIfLoggedUserOwner = async () => {
       const user = userService.getUser()
-      if (user != null) {
+      if (user !== null) {
         const statusCode = await auth.verifyLoggedInUser()
         const adOnwer = await ad.owner
-
-        if (statusCode == 201 && user.email === adOnwer) {
+        if (statusCode === 201 && user.email === adOnwer) {
           setIsOwner(true)
         }
       }
     }
 
     checkIfLoggedUserOwner()
-    
   }, [ad, isOwner])
 
   const handleDelete = async () => {
@@ -40,13 +38,10 @@ const AdDetails = () => {
     navigate('/');
   }
 
-  
-
   return (
     <div>
       {ad.fileId ? (
         <div className="bg-gray-100">
-          
           <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
             <div className="lg:max-w-lg lg:self-end">
               <div className="mt-4">
@@ -113,7 +108,6 @@ const AdDetails = () => {
                 )
               }
               </section>
-              
               <div>
                 <CommentSection ad={ad} />
               </div>
@@ -136,7 +130,6 @@ const AdDetails = () => {
       ) : (
         <p>not found</p>
       )}
-      
     </div>
   );
 };

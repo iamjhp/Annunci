@@ -25,6 +25,12 @@ const getItemById = async (id) => {
   return request.data
 }
 
+const getUserItems = async (id) => {
+  const updatedUrl = baseUrl + `/user/${id}`
+  const request = await axios.get(updatedUrl)
+  return request.data
+}
+
 const createAd = async (newObj) => {
   const response = await axios.post(baseUrl, newObj, {
     headers: {
@@ -47,7 +53,7 @@ const deleteAd = async (id) => {
 
 const commentAd = async (id, comment) => {
   const updatedUrl = baseUrl + `/${id}/commentAd`
-  const response = await axios.post(updatedUrl, {comment: comment})
+  const response = await axios.post(updatedUrl, { comment: comment })
   return response.data
 }
 
@@ -56,6 +62,7 @@ const adsService = {
   makeImageLink,
   getAllItems,
   getItemById,
+  getUserItems,
   createAd,
   deleteAd,
   commentAd

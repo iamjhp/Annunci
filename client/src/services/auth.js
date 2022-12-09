@@ -14,7 +14,6 @@ const login = async credentials => {
   const response = await axios.post(baseUrl, credentials)
 
   userService.setUser(response)
-  
   return response.data
 }
 
@@ -28,10 +27,11 @@ const logout = () => {
 }
 
 const verifyLoggedInUser = async () => {
-  try { 
+  try {
     const res = await axios.get(baseUrl, config())
     return res.status
   } catch (e) {
+    console.log(e)
   }
 }
 

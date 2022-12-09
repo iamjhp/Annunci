@@ -1,5 +1,3 @@
-const path = require('path')
-
 describe('tests without login', function() {
   beforeEach(function() {
     cy.visit('http://localhost:3000')
@@ -15,7 +13,6 @@ describe('tests without login', function() {
       cy.contains('Entdecke die neuesten Inser')
       cy.contains('Inserat aufgeben')
     })
-  
     it('login form can be opened', function() {
       cy.contains('Sign in').click()
     })
@@ -69,26 +66,21 @@ describe('tests with login', function() {
       cy.get('input:last').type('Testzurich12#')
       cy.get('button').contains('Sign in').click()
     })
-  
     it('user can log in', function() {
       cy.contains("test@test.ch")
     })
-  
     it('user can log out', function() {
       cy.contains('Logout').click()
       cy.contains('Sign in')
       cy.contains('Sign up')
     })
-  
     it('user can create a new item', function() {
       cy.contains('Inserat aufgeben').click()
-      const pic = path.resolve(__dirname)
       const picFile = 'cypress/e2e/test.jpg'
-  
       cy.get('#form-title').type("Verkaufe Blumen")
       cy.get('#form-description').type("Hallo Leute, ich verkaufe Blumen")
       cy.get('#form-price').type('1000')
-      cy.get('input[type=file]').selectFile(picFile, {force: true})
+      cy.get('input[type=file]').selectFile(picFile, { force: true })
       cy.contains('Save').click()
     })
   })

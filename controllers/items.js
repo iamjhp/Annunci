@@ -30,6 +30,11 @@ itemsRouter.get('/:id', async (req, res) => {
   res.json(item)
 })
 
+itemsRouter.get('/user/:id', async (req, res) => {
+  const user = await User.findById(req.params.id).populate('ads', { id: 1, title: 1, createdAt: 1 })
+  res.json(user)
+})
+
 /*
   Post Request to save an Ad
   First, it checks whether the user has a valid token

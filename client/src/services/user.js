@@ -4,6 +4,14 @@ let token = null
 
 const STORAGE_KEY = 'loggedAnnunciUser'
 
+let config = (userToken) => {
+  return {
+    headers: {
+      Authorization: `bearer ${userToken}`
+    },
+  }
+}
+
 const getUser = () => {
   const loggedUserJSON = window.localStorage.getItem(STORAGE_KEY)
   if (loggedUserJSON) {
@@ -14,6 +22,13 @@ const getUser = () => {
   }
 
   return null
+}
+
+const getUserID = async () => {
+  const user = getUser()
+  const updatedUrl = baseUrl + '/loggedUserId'
+  const req = await axios.get(updatedUrl, config(user.token))
+  return req.data
 }
 
 const setUser = (response) => {
@@ -39,7 +54,8 @@ const userService = {
   setUser,
   checkUser,
   getToken,
-  clearToken
+  clearToken,
+  getUserID
 }
 
 export default userService
