@@ -10,7 +10,8 @@ import SignUp from './components/SignUp';
 import AdForm from './components/AdForm';
 import AdDetails from './components/AdDetails';
 import About from './components/About';
-import MyItem from './components/MyAds'
+import MyItem from './components/MyAds';
+import NotfoundPage from './components/NotFoundPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/new-ad" element={<AdForm />}/>
         <Route path="ads/:id" element={<AdDetails />}/>
         <Route path="/user/items" element={<MyItem />}/>
+        <Route path="*" element={<NotfoundPage />}/>
       </Routes>
     </div>
   )
