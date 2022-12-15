@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Popover, Transition, Menu } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import logo from '../image/Logo_v2.jpg';
@@ -17,11 +17,33 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
+function tabHandler() {
+  const [homeTabFocus, setHomeTabFocus] = useState(true);
+
+  return (
+    <Popover.Group as="nav" className="hidden space-x-10 md:flex">
+      <Link onClick={() => setHomeTabFocus(true)}
+        className={!homeTabFocus ? ("text-base font-medium text-gray-700 hover:bg-gray-700 hover:text-white px-1 py-1 rounded-md") : ("text-base font-medium text-blue-500 hover:bg-gray-700 hover:text-white px-1 py-1 rounded-md")}
+        to="/"
+      >
+        Home
+      </Link>
+      
+      <Link
+        onClick={() => setHomeTabFocus(false)}
+        className={homeTabFocus ? ("text-base font-medium text-gray-700 hover:bg-gray-700 hover:text-white px-1 py-1 rounded-md") : ("text-base font-medium text-blue-500 hover:bg-gray-700 hover:text-white px-1 py-1 rounded-md")}
+        to="/about"
+      >
+        About
+      </Link>
+    </Popover.Group>);
+}
+
 const Header = () => {
   const user = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const userFromStorage = userService.getUser();
     if (userFromStorage) {
@@ -96,8 +118,8 @@ const Header = () => {
                         {/* Profile dropdown */}
                         <Menu as="div" className="relative ml-3">
                           <div>
-                            <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                              <span className="sr-only">Open user menu</span>
+                            <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:text-blue-500 px-3 py-2 rounded-md">
+                              <span className="sr-only ">Open user menu</span>
                               <p>{user.email}</p>
                             </Menu.Button>
                           </div>
