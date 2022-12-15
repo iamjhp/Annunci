@@ -81,18 +81,7 @@ const Header = () => {
               </Popover.Button>
             </div>
             <Popover.Group as="nav" className="hidden space-x-10 md:flex">
-              <Link
-                className="text-base font-medium text-gray-700 hover:text-gray-900"
-                to="/"
-              >
-                Home
-              </Link>
-              <Link
-                className="text-base font-medium text-gray-700 hover:text-gray-900"
-                to="/about"
-              >
-                About
-              </Link>
+              {tabHandler()}
             </Popover.Group>
             {user === null ? (
               <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
