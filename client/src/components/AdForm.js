@@ -51,8 +51,8 @@ const AdForm = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <main>
+    <div className="h-full-screen bg-gray-100">
+      <main className="h-full">
         <div className="h-full mt-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
           {/* Ad Content */}
           <div className="px-4 py-8 sm:px-0">
@@ -64,9 +64,9 @@ const AdForm = () => {
                 <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
                   <div className="space-y-6 sm:space-y-5">
                     <div>
-                      <h2 className="text-lg font-medium leading-6 text-gray-900">
+                      <h1 className="text-lg font-medium leading-6 text-gray-900">
                         Neues gratis Inserat erstellen
-                      </h2>
+                      </h1>
                     </div>
 
                     <div className="space-y-6 sm:space-y-5">

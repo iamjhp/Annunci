@@ -56,15 +56,18 @@ const MyAds = () => {
                             {item.title}
                           </td>
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            {item.createdAt}
+                            {item.createdAt.substring(0, 19)}
                           </td>
                           <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                            <a
-                              href="#"
-                              className="text-indigo-600 hover:text-indigo-900"
-                            >
-                              Edit
-                            </a>
+                            <div className='mb-10'>
+                              <button
+                                type="button"
+                                //onClick={handleDelete} TODO
+                                className="mr-5 float-right inline-flex items-center rounded-md border border-transparent bg-red-500 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                              >
+                                Löschen
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}

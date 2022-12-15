@@ -88,25 +88,25 @@ const AdDetails = () => {
 
                 {/* email */}
                 <div className="mt-4 space-y-6">
-                  <span className="inline-flex items-center rounded-md bg-green-100 px-2.5 py-0.5 text-sm font-medium text-gray-800">
-                    {ad.owner}
+                  <span className="inline-flex items-center rounded-md bg-green-100 px-0 py-0.5 text-sm font-medium text-gray-800">
+                    Contact:  {ad.owner}
                   </span>
                 </div>
                 {
-                isOwner ? (
-                  <div className='mb-10'>
-                    <button
-                      type="button"
-                      onClick={handleDelete}
-                      className="mr-5 float-right inline-flex items-center rounded-md border border-transparent bg-red-500 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                      Löschen
-                    </button>
-                  </div>
-                ) : (
-                  <></>
-                )
-              }
+                  isOwner ? (
+                    <div className='mb-10'>
+                      <button
+                        type="button"
+                        onClick={handleDelete}
+                        className="mr-5 float-right inline-flex items-center rounded-md border border-transparent bg-red-500 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      >
+                        Löschen
+                      </button>
+                    </div>
+                  ) : (
+                    <></>
+                  )
+                }
               </section>
               <div>
                 <CommentSection ad={ad} />
