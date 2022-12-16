@@ -31,7 +31,7 @@ itemsRouter.get('/:id', async (req, res) => {
 })
 
 itemsRouter.get('/user/:id', async (req, res) => {
-  const user = await User.findById(req.params.id).populate('ads', { id: 1, title: 1, createdAt: 1 })
+  const user = await User.findById(req.params.id).populate('ads', { id: 1, title: 1, createdAt: 1, fileId: 1 })
   res.json(user)
 })
 
