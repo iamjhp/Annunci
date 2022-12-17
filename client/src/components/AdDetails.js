@@ -8,6 +8,7 @@ import userService from '../services/user'
 import CommentSection from './CommentSection';
 import { useNavigate } from 'react-router-dom';
 
+/*Shows the detailed description of an advertisement card.*/
 const AdDetails = () => {
   const [ad, setAd] = useState('');
   const [isOwner, setIsOwner] = useState(false);
@@ -95,6 +96,7 @@ const AdDetails = () => {
                 {
                   isOwner ? (
                     <div className='mb-10'>
+                      {/* Delete button */}
                       <button
                         type="button"
                         onClick={handleDelete}
@@ -108,6 +110,7 @@ const AdDetails = () => {
                   )
                 }
               </section>
+              {/* Comment section */}
               <div>
                 <CommentSection ad={ad} />
               </div>

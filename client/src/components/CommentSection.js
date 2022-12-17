@@ -2,8 +2,10 @@ import userService from '../services/user';
 import adsService from '../services/ads';
 import { useState } from 'react'
 
-const DATESPACE = 23
-const MAXSPACE = 100
+const DATESPACE = 23 //Max character length of a date
+const MAXSPACE = 100//Max character length of comment to prevent overflow
+
+/*Comments section in AdDetails. Creates and manages comments.*/ 
 const CommentSection = ({ ad }) => {
   const [comments, setComments] = useState(ad?.comments);
   const [comment, setComment] = useState('');
@@ -12,6 +14,7 @@ const CommentSection = ({ ad }) => {
   const handleClick = (e) => {
     e.preventDefault();
     const toSaveComment = `${user} [${new Date().toLocaleString('en-GB')}] ${comment} `;
+    //Check comment if not null
     if(comment.length !== 0){
       adsService.commentAd(ad.id, toSaveComment);
       setComments([...comments].concat(toSaveComment));
@@ -22,9 +25,10 @@ const CommentSection = ({ ad }) => {
 
   return (
     <div>
+      {/* Title comment view*/}
       <h2 className='py-5'>Comments </h2>
       <div className="grid grid-cols-1 gap-3">
-      {comments.map((c, i) => (
+      {comments.map((comment, i) => (
         <div
 
           key={i}
@@ -34,22 +38,27 @@ const CommentSection = ({ ad }) => {
           <div className="min-w-0 flex-1" >
             <a href="#" className="focus:outline-none">
               <span className="absolute inset-0" aria-hidden="true" />
-              <p className="text-sm font-medium text-gray-900">{c.substring(0,user.length + DATESPACE)}</p> 
-              <p className="truncate text-sm text-gray-500">{c.substring(user.length + DATESPACE, MAXSPACE)}</p> 
+              {/* Set user email and date */}
+              <p className="text-sm font-medium text-gray-900">{comment.substring(0,user.length + DATESPACE)}</p> 
+              {/* Set user comment */}
+              <p className="truncate text-sm text-gray-500">{comment.substring(user.length + DATESPACE, MAXSPACE)}</p> 
             </a>
           </div>
         </div>
       ))}
     </div>
     <div className="flex items-start space-x-4">
-      
+
+     {/* Check if user logged in */} 
     {user && (
       <div className="min-w-0 flex-1 mt-5">
         <form action="#" className="relative" onSubmit={handleClick}>
           <div className="overflow-hidden rounded-lg border border-gray-300 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
+            {/* Title comment section */}
             <label htmlFor="comment" className="sr-only">
               Add your comment
             </label>
+            {/* Comment text input */}
             <textarea
               rows={3}
               name="comment"
@@ -76,6 +85,7 @@ const CommentSection = ({ ad }) => {
              
             </div>
             <div className="flex-shrink-0">
+              {/* Post button */}
               <button
                 type="submit"
                 className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"

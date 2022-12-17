@@ -14,12 +14,13 @@ const MyAds = () => {
     getUserAds();
   }, []);
 
+  // Delete ad
   const handleDelete = async (id) => {
-    await adsService.deleteAd(id) //item._id
+    await adsService.deleteAd(id)
     refreshPage();
   }
 
-
+  //reload page
   function refreshPage() {
     window.location.reload(false);
   }
@@ -29,6 +30,7 @@ const MyAds = () => {
       {ads ? (
         <div className="h-100 px-4 sm:px-6 lg:px-8 bg-gray-100">
           <div className="sm:flex sm:items-center">
+            { /* Title */}
             <div className="sm:flex-auto">
               <h1 className="text-xl font-semibold text-gray-900">Meine Inserate</h1>
             </div>
@@ -36,6 +38,7 @@ const MyAds = () => {
           <div className="mt-8 flex flex-col">
             <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+              { /* Table with user ads */}
                 <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                   <table className="min-w-full divide-y divide-gray-300">
                     <thead className="bg-gray-50">
@@ -94,19 +97,21 @@ const MyAds = () => {
                           </td>
                           <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                             <div className='mb-10'>
-                                                          <button
+                            { /* Delete button */}
+                              <button
                                 type="button"
                                 onClick={e => handleDelete(item.id, e)}
                                 className="mr-5 float-right inline-flex items-center rounded-md border border-transparent bg-red-500 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                               >
                                 Delete
                               </button>
+                              { /* Show details button */}
                               <Link
-                              className="mr-5 float-right inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                              to={`/ads/${item.id}`}
-                            >
-                              Show details
-                            </Link>
+                                className="mr-5 float-right inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                to={`/ads/${item.id}`}
+                              >
+                                Show details
+                              </Link>
                             </div>
                           </td>
                         </tr>

@@ -17,7 +17,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-function tabHandler() {
+function tabFocusHandler() {
   const [homeTabFocus, setHomeTabFocus] = useState(true);
 
   return (
@@ -28,7 +28,7 @@ function tabHandler() {
       >
         Home
       </Link>
-      
+
       <Link
         onClick={() => setHomeTabFocus(false)}
         className={homeTabFocus ? ("text-base font-medium text-gray-700 hover:bg-gray-700 hover:text-white px-1 py-1 rounded-md") : ("text-base font-medium text-blue-500 hover:bg-gray-700 hover:text-white px-1 py-1 rounded-md")}
@@ -66,6 +66,7 @@ const Header = () => {
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="flex items-center justify-between py-6 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
+              {/* Annunci Logo with button */}
               <Link
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
                 to="/"
@@ -75,14 +76,16 @@ const Header = () => {
               </Link>
             </div>
             <div className="-my-2 -mr-2 md:hidden">
+              {/* Popover menu */}
               <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                 <span className="sr-only">Open menu</span>
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </Popover.Button>
             </div>
             <Popover.Group as="nav" className="hidden space-x-10 md:flex">
-              {tabHandler()}
+              {tabFocusHandler()}
             </Popover.Group>
+            {/* Sign in button */}
             {user === null ? (
               <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
                 <Link
@@ -144,6 +147,7 @@ const Header = () => {
                     </div>
                   </div>
                 </div>
+                {/* Logout button */}
                 <button
                   type="button"
                   onClick={handleLogOut}
@@ -202,7 +206,7 @@ const Header = () => {
                     </Link>
                   </nav>
                 </div>
-                {/* TODO */}
+
                 {user && (
                   <div className="border-t border-gray-200 pt-4 pb-3">
                     <div className="mt-3 space-y-1">
