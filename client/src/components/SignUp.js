@@ -25,8 +25,6 @@ const SignUp = () => {
   const [errMsgInvalidEmail, setErrMsgInvalidEmail] = useState('');
   const [errMsgInvalidPassword, setErrMsgInvalidPassword] = useState('');
   const [errMsgInvalidConfirmPwd, setErrMsgInvalidConfirmPwd] = useState('');
-
-  //delete after merge (use routing)
   const [success, setSuccess] = useState('');
 
   useEffect(() => {
@@ -174,7 +172,7 @@ const SignUp = () => {
                 </div>
 
                 <div>
-                  {/*Form field confirm password  TODO*/}
+                  {/*Form field confirm password */}
                   <label
                     htmlFor="confirmPassword"
                     className="block text-sm font-medium text-gray-700"
