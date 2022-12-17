@@ -63,7 +63,7 @@ const AdDetails = () => {
 
                   <div className="ml-4 border-l border-gray-300 pl-4">
                     {/* Product offer */}
-                    {ad.offer === 'biete' ? (
+                    {ad.offer === 'Biete' ? (
                       <div className="flex items-center">
                         <CheckIcon
                           className="h-5 w-5 flex-shrink-0 text-green-500"
