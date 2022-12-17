@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import userService from '../services/user';
 import adsService from '../services/ads';
+import { Link } from 'react-router-dom';
 
 const MyAds = () => {
   const [ads, setAds] = useState('');
@@ -17,7 +18,7 @@ const MyAds = () => {
     await adsService.deleteAd(id) //item._id
     refreshPage();
   }
-  
+
 
   function refreshPage() {
     window.location.reload(false);
@@ -43,13 +44,25 @@ const MyAds = () => {
                           scope="col"
                           className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                         >
+                          Bild
+                        </th>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                        >
                           Title
                         </th>
                         <th
                           scope="col"
-                          className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                          className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                         >
-                          Erstellt
+                          Preis
+                        </th>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                        >
+                          Erstellt am
                         </th>
                         <th
                           scope="col"
@@ -65,27 +78,35 @@ const MyAds = () => {
                           <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                             <img
                               className="inline-block h-20 w-20 rounded-md"
-                              src={adsService.makeImageLink(item.fileId)}//"639c72b194c9ecac614f2180" fileId
+                              src={adsService.makeImageLink(item.fileId)}
                               alt={item.title}
                             />
                           </td>
-                          
-                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                            {item.fileid}
-                  
+
+                          <td className="whitespace-nowrap px-3 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                            {item.title}
                           </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          <td className="whitespace-nowrap px-30 py-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                            {item.price + " CHF"}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 sm:pl-6">
                             {item.createdAt.substring(0, 19)}
                           </td>
                           <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                             <div className='mb-10'>
-                              <button
+                                                          <button
                                 type="button"
                                 onClick={e => handleDelete(item.id, e)}
                                 className="mr-5 float-right inline-flex items-center rounded-md border border-transparent bg-red-500 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                               >
-                                Löschen
+                                Delete
                               </button>
+                              <Link
+                              className="mr-5 float-right inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                              to={`/ads/${item.id}`}
+                            >
+                              Show details
+                            </Link>
                             </div>
                           </td>
                         </tr>
