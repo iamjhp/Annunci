@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const offers = [
-  { id: 'sell', title: 'biete' },
-  { id: 'buy', title: 'suche' },
+  { id: 'sell', title: 'Biete' },
+  { id: 'buy', title: 'Suche' },
 ];
 
 const AdForm = () => {
@@ -56,10 +56,10 @@ const AdForm = () => {
         <div className="h-full mt-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
           {/* Ad Content */}
           <div className="px-4 py-8 sm:px-0">
-            <div className="h-96 rounded-lg border-gray-200">
+            <div className="h-200 rounded-lg border-gray-200">
               <form
                 onSubmit={handleOnSubmit}
-                className="space-y-8 divide-y divide-gray-200"
+                className="bg-gray-100 space-y-8 divide-y divide-gray-200"
               >
                 <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
                   <div className="space-y-6 sm:space-y-5">
@@ -72,7 +72,7 @@ const AdForm = () => {
                     <div className="space-y-6 sm:space-y-5">
                       {/* Radio button for offer */}
                       <div>
-                        <label className="text-base font-medium text-gray-900">
+                        <label className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                           Angebot
                         </label>
                         <fieldset className="mt-4">
@@ -167,7 +167,7 @@ const AdForm = () => {
                       </div>
 
                       {/* file upload field */}
-                      <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                      <div className="bg-gray-100 sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                         <label
                           htmlFor="upload-pic"
                           className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
@@ -194,7 +194,7 @@ const AdForm = () => {
                               <div className="flex text-sm text-gray-600">
                                 <label
                                   htmlFor="file-upload"
-                                  className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
+                                  className="relative cursor-pointer rounded-md bg-gray font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                                 >
                                   <span>Ein Bild hochladen</span>
                                   <input
