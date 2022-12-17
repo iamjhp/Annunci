@@ -3,9 +3,11 @@ import authService from '../services/auth';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../reducers/authReducer';
+import { useState } from 'react';
 
 const Login = () => {
   const navigate = useNavigate();
+  const [loginAttempt, setLoginAttempt] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -27,10 +29,11 @@ const Login = () => {
         <img className="mx-auto h-12 w-auto" src={logo} alt="Annunci" />
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
           In dein Konto einloggen
+
         </h2>
       </div>
 
-      {/*Form field email TODO*/}
+      {/*Form field email */}
       <div className="h-full mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleOnSubmit}>
@@ -53,7 +56,7 @@ const Login = () => {
               </div>
             </div>
 
-            {/*Form field passwort TODO*/}
+            {/*Form field passwort */}
             <div>
               <label
                 htmlFor="password"
@@ -75,7 +78,7 @@ const Login = () => {
 
             <div className="flex items-center justify-between">
               <div className="flex items-center"></div>
-              {/*Add routing to reset password TODO*/}
+              {/*Add routing to reset password */}
               <div className="text-sm">
                 <a
                   href="#"
@@ -86,15 +89,21 @@ const Login = () => {
               </div>
             </div>
 
-            {/*SignIn Button  TODO*/}
+            {/*SignIn Button */}
             <div>
               <button
+                onClick={() => setLoginAttempt(true)}
                 type="submit"
                 className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Sign in
+
               </button>
             </div>
+            {loginAttempt ? (<div className="p-4 mb-4 text-sm text-red-700 bg-white-100 rounded-lg dark:bg-blue-200 dark:text-blue-800" role="alert">
+              <span className="font-medium">Die E-Mail-Adresse oder das Passwort ist ungültig.</span>
+            </div>) : ''}
+
           </form>
 
           <div className="mt-6">
@@ -109,7 +118,7 @@ const Login = () => {
 
             <p className="mt-2 text-center text-sm text-gray-600">
               Hast du noch kein Konto?
-              {/*Add routing TODO*/}
+              {/*Add routing */}
               <a
                 href="#"
                 className="ml-2 font-medium text-indigo-600 hover:text-indigo-500"
