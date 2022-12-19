@@ -32,15 +32,15 @@ app.use(express.static('build'))
 // Parse incoming requests with JSON payloads
 app.use(express.json())
 
-// Add new routers with middlewares userExtractor
+// Use new routers with middlewares userExtractor
 app.use('/api/items', userExtractor, itemsRouter)
 app.use('/api/users', userExtractor, usersRouter)
 app.use('/api/login', userExtractor, loginRouter)
 
-// Add middleware for unknown endpoints
+// Use unkownEndpoint middleware for unknown endpoints
 app.use(unknownEndpoint)
 
-// Add middleware for error handling
+// Use middleware for error handling
 app.use(errorHandler)
 
 module.exports = app
