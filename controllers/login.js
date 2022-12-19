@@ -50,8 +50,9 @@ loginRouter.get('/loggedUserId', (req, res) => {
  */
 loginRouter.post('/', async (req, res) => {
   const { email, password } = req.body
-
-  const user = await User.findOne({ email })
+  const query = { email: email.toString()}
+  
+  const user = await User.findOne(query)
 
   const passwordCorrect = user === null
     ? false
