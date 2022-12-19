@@ -3,6 +3,7 @@ const User = require('../models/user')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
+// Isolate the token from the authorization header and return the token
 const getTokenFrom = request => {
   const authorization = request.get('authorization')
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
@@ -11,6 +12,12 @@ const getTokenFrom = request => {
   return null
 }
 
+/**
+ * GET: /login
+ * Check the validity of the user's token with jwt.verify
+ * if the token is valid, return 201
+ * otherwise return the status code 401
+ */
 loginRouter.get('/', (req, res) => {
   const token = getTokenFrom(req)
   const decodedToken = jwt.verify(token, process.env.SECRET)
@@ -20,6 +27,12 @@ loginRouter.get('/', (req, res) => {
   return res.status(201).end()
 })
 
+/**
+ * GET: /login/loggedUserId
+ * Check the validity of the user's token with jwt.verify
+ * Return the userId which the token was based on
+ * If ther is no (valid) token, it will return a error with 401
+ */
 loginRouter.get('/loggedUserId', (req, res) => {
   const token = getTokenFrom(req)
   const decodedToken = jwt.verify(token, process.env.SECRET)
@@ -29,6 +42,12 @@ loginRouter.get('/loggedUserId', (req, res) => {
   return res.json(decodedToken.id)
 })
 
+/**
+ * POST: /login
+ * Verfy that the email and pasword match
+ * and create a 1h valid token for this credential
+ * If the credential is worng, it will return 401
+ */
 loginRouter.post('/', async (req, res) => {
   const { email, password } = req.body
 
