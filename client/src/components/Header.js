@@ -110,7 +110,7 @@ const Header = () => {
                         {/* Profile dropdown */}
                         <Menu as="div" className="relative ml-3">
                           <div>
-                            <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:text-blue-500 px-3 py-2 rounded-md">
+                            <Menu.Button className="flex bg-white rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:text-blue-500 px-3 py-2">
                               <span className="sr-only ">Open user menu</span>
                               <p>{user.email}</p>
                             </Menu.Button>
