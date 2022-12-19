@@ -8,10 +8,10 @@ const config = require('../utils/config')
 const mongoose = require("mongoose");
 const url = config.MONGODB_URI
 
-/*
-  Create connection to MongoDB using GridFsBucket to save image files
-  GridFs splits a file into chunks during storage
-*/
+/** 
+  * Create connection to MongoDB using GridFsBucket to save image files
+  * GridFs splits a file into chunks during storage
+  */
 const conn = mongoose.createConnection(url, { useNewUrlParser: true, useUnifiedTopology: true });
 let gfsBucket
 conn.once("open", () => {
@@ -20,27 +20,40 @@ conn.once("open", () => {
   })
 })
 
+/**
+ * GET: /items
+ * Returns all ads from the database
+ */
 itemsRouter.get('/', async (req, res) => {
   const items = await Item.find({});
   res.json(items);
 });
 
+/**
+ * GET: /items/:id
+ * Returns only an ads with the :id 
+ */
 itemsRouter.get('/:id', async (req, res) => {
   const item = await Item.findById(req.params.id)
   res.json(item)
 })
 
+/**
+ * GET: items/user/:id
+ * Return all ads of a user with the :id
+ */
 itemsRouter.get('/user/:id', async (req, res) => {
   const user = await User.findById(req.params.id).populate('ads', { id: 1, title: 1, createdAt: 1, fileId: 1, price: 1 })
   res.json(user)
 })
 
-/*
-  Post Request to save an Ad
-  First, it checks whether the user has a valid token
-  If yes, then an ad is created and confirmed with 201
-  otherwise 401 error
-*/
+/**
+  * POST: /items
+  * Saves the ad to the database
+  * First, it checks whether the user has a valid token
+  * If yes, then an ad is created and confirmed with 201
+  * otherwise 401 error
+  */
 itemsRouter.post(
   '/',
   imageHelper.upload.single('file'),
@@ -79,6 +92,10 @@ itemsRouter.post(
   }
 );
 
+/**
+ * POST: items/:id/commentAd
+ * To save a comment for a corresponding ad
+ */
 itemsRouter.post('/:id/commentAd', async (req, res) => {
   const { id } = req.params
   const { comment } = req.body
@@ -91,7 +108,13 @@ itemsRouter.post('/:id/commentAd', async (req, res) => {
   res.json(updtedItem)
 })
 
-
+/**
+ * DELETE: /items/:id
+ * Delete the ad with the corresponding id and the images of this ad from the database
+ * only if the request is from the owner of the ad
+ * if it is successful, return 204
+ * if the request does not originate from the onwer: 401
+ */
 itemsRouter.delete('/:id', async (req, res) => {
   const itemToDelete = await Item.findById(req.params.id)
   if (!itemToDelete) {
@@ -117,6 +140,10 @@ itemsRouter.delete('/:id', async (req, res) => {
   res.status(204).end()
 })
 
+/**
+ * GET: /items/images
+ * Return all images from the database
+ */
 itemsRouter.get('/images', async (req, res) => {
   const items = await Item.find({});
   const fileIDs = items.map(img => img.fileId)
@@ -124,6 +151,10 @@ itemsRouter.get('/images', async (req, res) => {
   res.status(201).json(fileIDs);
 })
 
+/**
+ * GET: /items/images/:id
+ * Returns the image of the requested ad 
+ */
 itemsRouter.get('/images/:id', async (req, res, next) => {
   try{
     const id = req.params.id

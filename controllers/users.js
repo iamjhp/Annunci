@@ -2,6 +2,10 @@ const userRouter = require('express').Router()
 const User = require('../models/user')
 const bcrypt = require('bcrypt')
 
+/**
+ * GET: /users
+ * Return all users
+ */
 userRouter.get('/', async (req, res) => {
   const users = await User
     .find({})
@@ -10,6 +14,14 @@ userRouter.get('/', async (req, res) => {
   res.json(users)
 })
 
+/**
+ * POST: /users
+ * Create a new user
+ * First, it checks whether the email is not already taken
+ * Then, the password is hashed with bcrypt and salt before
+ * it will store in the database and return 201
+ * If it is not successful, return 400
+ */
 userRouter.post('/', async (req, res) => {
   const { email, password } = req.body
   if (!password || password.length < 3) {
