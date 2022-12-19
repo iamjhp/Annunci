@@ -2,18 +2,21 @@ const logger = require('./logger')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 
+// Print information about every request that is sent to the server
 const requestLogger = (request, response, next) => {
   logger.info('Method:', request.method)
   logger.info('Path:  ', request.path)
   logger.info('Body:  ', request.body)
   logger.info('---')
-  next()
+  next() // yields control to the next middleware
 }
 
+// return 404 for unkown endpoint
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
 
+// Error Handling to account the different decoding erros
 const errorHandler = (error, request, response, next) => {
   logger.error(error.message)
   if (error.name === 'CastError') {
@@ -32,6 +35,7 @@ const errorHandler = (error, request, response, next) => {
   next(error)
 }
 
+// Find out the user and sets  it to the request object
 const userExtractor = async (request, response, next) => {
   const authorization = request.get('authorization')
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
