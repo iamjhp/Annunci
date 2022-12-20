@@ -16,13 +16,10 @@ const MyAds = () => {
 
   // Delete ad
   const handleDelete = async (id) => {
+    const newAdsArray = ads.ads.filter(ad => ad.id !== id)
+    const newObj = { ...ads, ads: newAdsArray }
+    setAds(newObj)
     await adsService.deleteAd(id)
-    refreshPage();
-  }
-
-  //reload page
-  function refreshPage() {
-    window.location.reload(false);
   }
 
   return (

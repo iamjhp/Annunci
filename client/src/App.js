@@ -24,7 +24,7 @@ function App() {
         <Route path="/signup" element={<SignUp />}/>
         <Route path="/new-ad" element={<AdForm />}/>
         <Route path="ads/:id" element={<AdDetails />}/>
-        <Route path="/user/items" element={<MyItem />}/>
+        <Route path="/myAds" element={<MyItem />}/>
         <Route path="*" element={<NotfoundPage />}/>
       </Routes>
     </div>
