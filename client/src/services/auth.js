@@ -2,6 +2,7 @@ import axios from 'axios'
 import userService from './user'
 const baseUrl = '/api/login'
 
+// Set header with token authorization
 let config = () => {
   return {
     headers: {
@@ -10,6 +11,10 @@ let config = () => {
   }
 }
 
+/**
+ * POST: /api/login
+ * Log in with the received credential
+ */
 const login = async credentials => {
   const response = await axios.post(baseUrl, credentials)
 
@@ -17,6 +22,7 @@ const login = async credentials => {
   return response.data
 }
 
+// Log out and delete token
 const logout = () => {
   localStorage.clear()
   config = {
@@ -26,6 +32,10 @@ const logout = () => {
   }
 }
 
+/**
+ * GET: /api/login
+ * Check if the token of the user to be logged in is valid
+ */
 const verifyLoggedInUser = async () => {
   try {
     const res = await axios.get(baseUrl, config())

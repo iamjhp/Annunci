@@ -4,6 +4,7 @@ let token = null
 
 const STORAGE_KEY = 'loggedAnnunciUser'
 
+// Set header with token authorization
 let config = (userToken) => {
   return {
     headers: {
@@ -12,6 +13,7 @@ let config = (userToken) => {
   }
 }
 
+// Return the logged in user
 const getUser = () => {
   const loggedUserJSON = window.localStorage.getItem(STORAGE_KEY)
   if (loggedUserJSON) {
@@ -24,6 +26,11 @@ const getUser = () => {
   return null
 }
 
+/**
+ * GET: /api/login/loggedUserId
+ * Check the validity of the user's credential
+ * Return the userId if the user's credential is valid
+ */
 const getUserID = async () => {
   const user = getUser()
   const updatedUrl = baseUrl + '/loggedUserId'
@@ -31,6 +38,7 @@ const getUserID = async () => {
   return req.data
 }
 
+// Save the received token in the storage
 const setUser = (response) => {
   if (response.data.token) {
     window.localStorage.setItem(
@@ -41,6 +49,10 @@ const setUser = (response) => {
   }
 }
 
+/**
+ * GET: /api/login
+ * Check if the user's token is valid 
+ */
 const checkUser = async () => {
   const req = await axios.get(baseUrl)
   return req
