@@ -9,7 +9,7 @@ import userService from '../services/user';
 import authSerivce from '../services/auth';
 
 const userNavigation = [
-  { name: 'Meine Inserate', href: '/user/items' },
+  { name: 'Meine Inserate', href: '/myAds' },
   { name: 'Settings', href: '#' },
 ];
 
