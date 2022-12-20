@@ -3,6 +3,7 @@ import authService from '../services/auth'
 
 const initialState = null
 
+// Auth redux slice to handle user's credential
 const authSlice = createSlice({
   name: 'auth',
   initialState,
