@@ -22,8 +22,8 @@ const Login = () => {
       dispatch(setUser(res));
       navigate('/');
     } catch (err) {
-      setLoginAttempt(true)
-      console.log(err.message)
+      setLoginAttempt(true);
+      console.log(err.message);
     }
   };
 
