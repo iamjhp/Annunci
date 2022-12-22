@@ -128,15 +128,15 @@ const Header = () => {
                               {userNavigation.map((item) => (
                                 <Menu.Item key={item.name}>
                                   {({ active }) => (
-                                    <a
-                                      href={item.href}
+                                    <Link
+                                      to={item.href}
                                       className={classNames(
                                         active ? 'bg-gray-100' : '',
                                         'block px-4 py-2 text-sm text-gray-700'
                                       )}
                                     >
                                       {item.name}
-                                    </a>
+                                    </Link>
                                   )}
                                 </Menu.Item>
                               ))}
@@ -213,7 +213,7 @@ const Header = () => {
                       {userNavigation.map((item) => (
                         <Link
                           key={item.name}
-                          to="/about"
+                          to={item.href}
                           className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
                         >
                           <span className="ml-3 text-base font-medium text-gray-900">
