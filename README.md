@@ -11,7 +11,7 @@
 [GitHub](https://github.com/iamjhp/Annunci)
 
 **Link**
-[Annunci](https://test-er1f.onrender.com/)
+[Annunci](https://annunci.onrender.com/)
 
   
   To run the project Node.js is needed.  
