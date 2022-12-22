@@ -2,6 +2,7 @@ import logo from '../image/logo.jpg';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import accountService from '../services/account';
+import { Link } from "react-router-dom";
 
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,32}$/;
 const EMAIL_REGEX =
@@ -230,12 +231,12 @@ const SignUp = () => {
 
                 <p className="mt-2 text-center text-sm text-gray-600">
                   Du hast schon ein Konto?
-                  <a
-                    href="/login"
-                    className="ml-2 font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    Einloggen
-                  </a>
+                  <Link
+                  to="/login"
+                  className="ml-2 font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  Einloggen
+                </Link>
                 </p>
               </div>
             </div>
