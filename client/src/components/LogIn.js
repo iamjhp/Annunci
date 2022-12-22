@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../reducers/authReducer';
 import { useState } from 'react';
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -123,12 +124,12 @@ const Login = () => {
             <p className="mt-2 text-center text-sm text-gray-600">
               Hast du noch kein Konto?
               {/*Add routing */}
-              <a
-                href="#"
-                className="ml-2 font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Jetzt registrieren.
-              </a>
+              <Link
+                  to="/signup"
+                  className="ml-2 font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  Jetzt registrieren.
+                </Link>
             </p>
           </div>
         </div>
