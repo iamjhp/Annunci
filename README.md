@@ -72,7 +72,7 @@ Client:
   
     <img width="762" alt="image" src="https://user-images.githubusercontent.com/79464708/208256115-13a6d0b7-6c7d-44f0-9ec7-05fc48c87db4.png">
     
-**Do you want to learn more about <code>Annunci</code> ? **
+**Do you want to learn more about <code>Annunci</code> ?**
 
 1.  Click on <code>about</code>*
   
